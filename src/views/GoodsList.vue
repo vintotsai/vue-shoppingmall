@@ -7,6 +7,7 @@
     </nav-bread>
     <div class="accessory-result-page accessory-page">
       <div class="container">
+        <!-- 响应式布局 当web端宽度小于一定值时显示 -->
         <div class="filter-nav">
           <span class="sortby">Sort by:</span>
           <a href="javascript:void(0)" class="default cur">Default</a>
@@ -15,11 +16,11 @@
               <use xlink:href="#icon-arrow-short"></use>
             </svg>
           </a>
-          <a href="javascript:void(0)" class="filterby stopPop">Filter by</a>
+          <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">Filter by</a>
         </div>
+
         <div class="accessory-result">
-          <!-- filter -->
-          <div class="filter stopPop" id="filter">
+          <div class="filter stopPop" v-bind:class="{'filterby-show':filterPopFlag}" id="filter">
             <dl class="filter-price">
               <dt>Price:</dt>
               <dd >
@@ -30,7 +31,6 @@
               </dd>
             </dl>
           </div>
-  
           <!-- search result accessories list -->
           <div class="accessory-list-wrap">
             <div class="accessory-list col-4">
@@ -53,9 +53,12 @@
               </ul>
             </div>
           </div>
+
         </div>
+
       </div>
     </div>
+    <div class="md-overlay" v-show="overlayFlag" @click="closeOverlay"></div>
     <nav-footer></nav-footer>
   </div>
 </template>
@@ -95,7 +98,9 @@ export default {
           end:'10000.00'
         }
       ],
-      priceChecked:'all'
+      priceChecked:'all',
+      filterPopFlag:false,
+      overlayFlag:false
     }
   },
   components: {
@@ -112,6 +117,14 @@ export default {
         let res = result.data;
         this.goodsList = res.result;
       }).catch((err) => console.log(err))
+    },
+    showFilterPop(){
+      this.filterPopFlag = true
+      this.overlayFlag = true
+    },
+    closeOverlay(){
+      this.overlayFlag = false
+      this.filterPopFlag = false
     }
   }
 }
