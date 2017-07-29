@@ -22,6 +22,13 @@ var proxyTable = config.dev.proxyTable
 
 var app = express()
 var compiler = webpack(webpackConfig)
+// 返回Mock数据
+var router = express.Router()
+var goodsData = require('./../mock/goods.json')
+router.get('/goods',function(req,res,next){
+  res.json(goodsData)
+})
+app.use(router)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
