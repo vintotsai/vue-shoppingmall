@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+
+import login from '@/views/login'
 import GoodsList from './../views/GoodsList'
 import Image from './../views/Image'
 import Title from './../views/Title'
@@ -14,9 +15,9 @@ export default new Router({
   mode:'hash', // hash和history
   routes: [
     {
-      path:'/',
-      name:'Hello',
-      component:Hello
+      path:'/login',
+      name:'login',
+      component:login
     },
     {
       path: '/goods',

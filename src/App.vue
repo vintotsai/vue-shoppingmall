@@ -1,17 +1,13 @@
 <template>
   <div id="app">
-    <!-- <img src="./assets/logo.png"> -->
-    <h2>{{msg}}</h2>
     <router-view></router-view>
   </div>
 </template>
-
 <script>
 export default {
   name: 'app',
   data(){
     return {
-      msg:'App.vue'
     }
   }
 }

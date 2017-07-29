@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>vue-resource</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link href="css/style.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <script src="../node_modules/vue/dist/vue.min.js"></script>
+  <script src="../node_modules/vue-resource/dist/vue-resource.min.js"></script>
+</head>
+
+<body>
+  <div id="app" class="container">
+    <p>vue-resource test.</p>
+    <a href="javascript:;" class="btn btn-primary" v-on:click="get">Get请求</a>
+    <a href="javascript:;" class="btn btn-primary">Post请求</a>
+    <a href="javascript:;" class="btn btn-primary" @click="jsonp">jsonp请求</a>
+    <div>
+      <span>{{msg}}</span>
+    </div>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        msg: ''
+      },
+      mounted: function () {
+        // vue-resource 拦截器
+        Vue.http.interceptors.push((request, next) => {　
+          console.log(this) //此处this为请求所在页面的Vue实例
+          // modify request
+          //request.method = 'POST'; //在请求之前可以进行一些预处理和配置
+          // continue to next interceptor          　　
+          next(response => { //在响应之后传给then之前对response进行修改和逻辑判断。对于token时候已过期的判断，就添加在此处，页面中任何一次http请求都会先调用此处方法
+            response.body = '...';
+            console.log('response init')
+            return response;
+          });
+        });
+
+      },
+      methods: {
+        get: function () { // 不能实现跨域请求
+          // 也可以用： Vue.http.get()
+          this.$http.get('http://www.imooc.com/u/card', {
+            params: {
+              userId: 101
+            },
+            headers: {
+              token: 'totsai'
+            }
+          }).then(
+            res => this.msg = res.data,
+            err => this.msg = err
+          )
+        },
+        jsonp: function () { // 跨域请求
+          this.$http.jsonp('http://www.imooc.com/u/card').then(function (res) {
+            this.msg = res.data;
+          }, function (err) {
+            this.msg = err
+          })
+        }
+      }
+    })
+
+  </script>
+</body>
+
+</html>
