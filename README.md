@@ -1,7 +1,12 @@
-# shoppingmall
+# mongodb+nodejs+vuejs 实战打造shoppingMall
 
-> A node+mongodb+vue project
-
+> 前端view vuejs2.0  
+> 前端路由 vue-router
+> 请求数据 axios
+> 状态管理 vuex
+> 后端框架 express
+> 数据库  mongoDB
+ 
 ## Build Setup
 
 ``` bash
