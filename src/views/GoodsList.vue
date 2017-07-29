@@ -22,20 +22,11 @@
           <div class="filter stopPop" id="filter">
             <dl class="filter-price">
               <dt>Price:</dt>
-              <dd>
-                <a href="javascript:void(0)">All</a>
+              <dd >
+                <a href="javascript:void(0)" v-bind:class="{'cur':priceChecked == 'all'}" @click="priceChecked = 'all'">All</a>
               </dd>
-              <dd>
-                <a href="javascript:void(0)">0 - 100</a>
-              </dd>
-              <dd>
-                <a href="javascript:void(0)">100 - 500</a>
-              </dd>
-              <dd>
-                <a href="javascript:void(0)">500 - 1000</a>
-              </dd>
-              <dd>
-                <a href="javascript:void(0)">1000 - 2000</a>
+              <dd v-for="(priceRange,index) in priceFilter" @click="priceChecked = index">
+                <a href="javascript:void(0)" v-bind:class="{'cur':index == priceChecked}">{{priceRange.start}} - {{priceRange.end}}</a>
               </dd>
             </dl>
           </div>
@@ -58,7 +49,7 @@
                     </div>
                   </div>
                 </li>
-                
+  
               </ul>
             </div>
           </div>
@@ -77,7 +68,34 @@ export default {
   name: 'GoodsList',
   data() {
     return {
-      goodsList:[]
+      goodsList: [],
+      priceFilter: [
+        {
+          start:'0',
+          end:'100.00'
+        },
+        {
+          start:'100.00',
+          end:'500.00'
+        },
+        {
+          start:'500.00',
+          end:'1000.00'
+        },
+        {
+          start:'1000.00',
+          end:'2000.00'
+        },
+        {
+          start:'2000.00',
+          end:'5000.00'
+        },
+        {
+          start:'5000.00',
+          end:'10000.00'
+        }
+      ],
+      priceChecked:'all'
     }
   },
   components: {
@@ -85,12 +103,12 @@ export default {
     NavFooter,
     NavBread
   },
-  mounted: function(){
+  mounted: function () {
     this.getGoodsList()
   },
   methods: {
     getGoodsList() {
-      axios.get('/goods').then((result)=>{
+      axios.get('/goods').then((result) => {
         let res = result.data;
         this.goodsList = res.result;
       }).catch((err) => console.log(err))
