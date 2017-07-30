@@ -8,8 +8,14 @@ import './assets/css/base.css'
 import './assets/css/checkout.css'
 import './assets/css/login.css'
 import './assets/css/product.css'
+import VueLazyload from 'vue-lazyload'
 
 Vue.config.productionTip = false
+
+// Vue.use(VueLazyload)
+Vue.use(VueLazyload,{
+  loading: './../static/loading-svg/loading-bars.svg'
+})
 
 /* eslint-disable no-new */
 new Vue({

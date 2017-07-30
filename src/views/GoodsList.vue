@@ -26,7 +26,7 @@
               <dd >
                 <a href="javascript:void(0)" v-bind:class="{'cur':priceChecked == 'all'}" @click="priceChecked = 'all'">All</a>
               </dd>
-              <dd v-for="(priceRange,index) in priceFilter" @click="priceChecked = index">
+              <dd v-for="(priceRange,index) in priceFilter" @click="setPriceFilter(index)">
                 <a href="javascript:void(0)" v-bind:class="{'cur':index == priceChecked}">{{priceRange.start}} - {{priceRange.end}}</a>
               </dd>
             </dl>
@@ -38,7 +38,7 @@
                 <li v-for="(item,index) in goodsList">
                   <div class="pic">
                     <a href="#">
-                      <img v-bind:src="'./static/'+item.productImg" alt="商品图">
+                      <img v-lazy="'./static/'+item.productImg" alt="商品图">
                     </a>
                   </div>
                   <div class="main">
@@ -122,10 +122,15 @@ export default {
       this.filterPopFlag = true
       this.overlayFlag = true
     },
+    setPriceFilter(index){
+      this.priceChecked = index
+      this.closeOverlay() //注意前面要写this
+    },
     closeOverlay(){
       this.overlayFlag = false
       this.filterPopFlag = false
-    }
+    },
+    
   }
 }
 </script>
