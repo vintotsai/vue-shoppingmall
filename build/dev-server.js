@@ -24,13 +24,16 @@ var app = express()
 var compiler = webpack(webpackConfig)
 // 返回Mock数据
 var router = express.Router()
-var goodsData = require('./../mock/goods.json')
+
+// 请求本地数据实验
+// var goodsData = require('./../mock/goods.json')
 // router.get('/',function(req,res,next){
 //   res.send("Welcome home.")
 // })
-router.get('/goods',function(req,res,next){
-  res.json(goodsData)
-})
+// router.get('/goods',function(req,res,next){
+//   res.json(goodsData)
+// })
+
 app.use(router)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
