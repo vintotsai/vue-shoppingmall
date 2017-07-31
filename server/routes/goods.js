@@ -103,42 +103,65 @@ router.post('/addCart', function (req, res, next) {
       })
     } else {
       if (userDoc) {
-        Goods.findOne({
-          'productId': productId
-        }, function (err1, doc1) {
-          if (err1) {
-            res.json({
-              status: 0,
-              msg: err1.message,
-            })
-          } else {
-            doc1.productNum = 1;
-            doc1.checked = 1;
-            userDoc.cartList.push(doc1);
-            userDoc.save(function (err2, doc2) {
-              if (err2) {
-                res.json({
-                  status: 0,
-                  msg: err2.message,
-                })
-              } else {
-                res.json({
-                  status:1,
-                  msg:'保存成功。',
-                  result:'success..'
-                })
-              }
-            })
-
-
+        // 拿到user数据以后遍历cartList是否存在这件商品
+        let goodsItem = '';
+        userDoc.cartList.forEach(function (element) {
+          if (element.productId == productId) {
+            element.productNum+=1;
+            element.checked = 1;
+            goodsItem = element;
           }
-        })
-
+        });
+        if (goodsItem) {
+          userDoc.save(function (err2, doc2) {
+            if (err2) {
+              res.json({
+                status: 0,
+                msg: err2.message,
+              })
+            } else {
+              res.json({
+                status: 1,
+                msg: '保存成功。',
+                result: 'success..'
+              })
+            }
+          })
+        } else {
+          Goods.findOne({
+            'productId': productId
+          }, function (err1, doc1) {
+            if (err1) {
+              res.json({
+                status: 0,
+                msg: err1.message,
+              })
+            } else {
+              console.log(doc1)
+              doc1.productNum = 1;
+              doc1.checked = 1;
+              console.log(doc1)
+              userDoc.cartList.push(doc1);
+              userDoc.save(function (err2, doc2) {
+                if (err2) {
+                  res.json({
+                    status: 0,
+                    msg: err2.message,
+                  })
+                } else {
+                  res.json({
+                    status: 1,
+                    msg: '保存成功。',
+                    result: 'success..'
+                  })
+                }
+              })
+            }
+          })
+        }
       }
     }
-
   })
-  // res.send(`/cart`);
-});
+})
 
 module.exports = router;

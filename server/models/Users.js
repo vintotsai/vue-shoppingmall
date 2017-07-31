@@ -12,8 +12,8 @@ let userSchema = new Schema({
       'productName':String,
       'salePrice':String,
       'productImage':String,
-      'productNum':String,
-      'checked':String,
+      'productNum':{type:Number,default:1},
+      'checked':{type:Number,default:1},
     }
   ],
   'addressList':[
