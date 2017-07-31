@@ -11,7 +11,7 @@
         <div class="filter-nav">
           <span class="sortby">Sort by:</span>
           <a href="javascript:void(0)" class="default cur">Default</a>
-          <a href="javascript:void(0)" class="price" @click="sortPrice">Price
+          <a href="javascript:void(0)" class="price" @click="sortPrice">按Price升序降序
             <svg class="icon icon-arrow-short">
               <use xlink:href="#icon-arrow-short"></use>
             </svg>
@@ -24,7 +24,7 @@
             <dl class="filter-price">
               <dt>Price:</dt>
               <dd >
-                <a href="javascript:void(0)" v-bind:class="{'cur':priceChecked == 'all'}" @click="priceChecked = 'all'">All</a>
+                <a href="javascript:void(0)" v-bind:class="{'cur':priceChecked == 'all'}" @click="setPriceFilterAll">All</a>
               </dd>
               <dd v-for="(priceRange,index) in priceFilter" @click="setPriceFilter(index)">
                 <a href="javascript:void(0)" v-bind:class="{'cur':index == priceChecked}">{{priceRange.start}} - {{priceRange.end}}</a>
@@ -51,7 +51,7 @@
                 </li>
 
               </ul>
-              <div class="load-more" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+              <div class="load-more" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="30">
                 loading...
               </div>
             </div>
@@ -102,7 +102,7 @@ export default {
       overlayFlag:false,
       sortPriceFlag:true, //true代表1升序排列
       page:1,
-      pageSize:6,
+      pageSize:8,
       busy:true,//滚动加载默认为true表示一开始时关闭滚动加载功能。
     }
   },
@@ -149,6 +149,12 @@ export default {
       this.priceChecked = index
       this.closeOverlay() //注意前面要写this
       this.page = 1
+      this.getGoodsList()
+    },
+    setPriceFilterAll(){
+      this.priceChecked = 'all'
+      this.page = 1
+      this.closeOverlay()
       this.getGoodsList()
     },
     closeOverlay(){
