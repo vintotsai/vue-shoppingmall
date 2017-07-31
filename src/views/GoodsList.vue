@@ -95,10 +95,6 @@ export default {
         {
           start:'2000.00',
           end:'5000.00'
-        },
-        {
-          start:'5000.00',
-          end:'10000.00'
         }
       ],
       priceChecked:'all',
@@ -125,7 +121,7 @@ export default {
       //   pageSize:this.pageSize,
       // }
       var sort = this.sortPriceFlag ? 1 : -1;
-      axios.get('/goods'+'?page='+this.page+'&pageSize='+this.pageSize+'&sort='+sort).then((result) => {
+      axios.get('/goods'+'?page='+this.page+'&pageSize='+this.pageSize+'&sort='+sort+'&priceRange='+this.priceChecked).then((result) => {
         let res = result.data;
         if(res.status == 1){
           if(flag){
@@ -152,6 +148,8 @@ export default {
     setPriceFilter(index){
       this.priceChecked = index
       this.closeOverlay() //注意前面要写this
+      this.page = 1
+      this.getGoodsList()
     },
     closeOverlay(){
       this.overlayFlag = false
@@ -163,14 +161,13 @@ export default {
       this.getGoodsList()
     },
     loadMore(){
-      
       this.page++;
-      console.log(this.page)
       this.busy = true
       setTimeout(() => {
         this.getGoodsList(true)
       }, 1000)
-    }
+    },
+
   }
 }
 </script>

@@ -20,16 +20,48 @@ router.get('/', function (req, res, next) {
   console.log(req.query)
   // 变量解构赋值
   // let [page,pageSize,sort,skip]=[parseInt(req.param('page')),parseInt(req.param('pageSize'))]
-  
+
   // let page = parseInt(req.query('page'))
   // let pageSize = parseInt(req.query('pageSize'))
   // let skip = (page - 1) * pageSize
   // let sort = parseInt(req.query('sort'))
   let page = parseInt(req.query.page)
   let pageSize = parseInt(req.query.pageSize)
-  let skip = (page-1)*pageSize
+  let skip = (page - 1) * pageSize
   let sort = parseInt(req.query.sort)
+  let priceRange = req.query.priceRange
+  let priceGT, priceLTE;
   let params = {}
+  if (priceRange != 'all') {
+    switch (priceRange) {
+      case '0':
+        priceGT = 0;
+        priceLTE = 100;
+        break;
+      case '1':
+        priceGT = 100;
+        priceLTE = 500;
+        break;
+      case '2':
+        priceGT = 500;
+        priceLTE = 1000;
+        break;
+      case '3':
+        priceGT = 1000;
+        priceLTE = 2000;
+        break;
+      case '4':
+        priceGT = 2000;
+        priceLTE = 5000;
+        break;
+    }
+      params = {
+      'salePrice': {
+        $gt: priceGT,
+        $lte: priceLTE
+      }
+    }
+  }
 
   let goodsModel = Goods.find(params).skip(skip).limit(pageSize).sort({
     'salePrice': sort
