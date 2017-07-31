@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+/* 伪类 清除ul标签的浮动塌陷 */
 .accessory-list > ul:after {
   visibility: hidden;
   display: block;
@@ -404,6 +404,20 @@
   -ms-flex: 1;
   flex: 1;
 }
+
+.accessory-list-wrap .load-more{
+  text-align: center;
+  height: 100px;
+  line-height: 100px;
+}
+
+/* 清除浮动 */
+/* .clear-fix-totsai{
+  clear: both;
+  content: '';
+  height: 0;
+  visibility: hidden;
+} */
 
 .filter-nav {
   height: 55px;

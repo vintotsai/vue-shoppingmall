@@ -42,7 +42,7 @@ router.get('/', function (req, res, next) {
         msg: err.message,
       })
     } else {
-      console.log(doc)
+      // console.log(doc)
       res.json({
         status: 1,
         msg: "连接成功！",

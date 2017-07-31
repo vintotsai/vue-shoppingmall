@@ -9,6 +9,7 @@ import './assets/css/checkout.css'
 import './assets/css/login.css'
 import './assets/css/product.css'
 import VueLazyload from 'vue-lazyload'
+import infiniteScroll from 'vue-infinite-scroll'
 
 Vue.config.productionTip = false
 
@@ -16,6 +17,8 @@ Vue.config.productionTip = false
 Vue.use(VueLazyload,{
   loading: './../static/loading-svg/loading-bars.svg'
 })
+// 滚动加载
+Vue.use(infiniteScroll)
 
 /* eslint-disable no-new */
 new Vue({
