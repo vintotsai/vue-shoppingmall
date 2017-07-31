@@ -19,7 +19,11 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-left: -20px;
+  /* margin-left: -20px; */
+}
+.navbar-left-container span{
+  font-weight: bold;
+  color: black;
 }
 .navbar-brand-logo {
   /*width: 120px;*/

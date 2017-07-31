@@ -10,7 +10,8 @@
       <div class="navbar">
         <div class="navbar-left-container">
           <a href="/">
-            <img class="navbar-brand-logo" src="static/logo.png">
+            <!--<img class="navbar-brand-logo" src="static/logo.png">-->
+            <span>DEEPBREATH</span>
           </a>
         </div>
         <div class="navbar-right-container" style="display: flex;">
