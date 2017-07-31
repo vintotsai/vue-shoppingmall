@@ -30,8 +30,9 @@ router.get('/', function (req, res, next) {
   let skip = (page - 1) * pageSize
   let sort = parseInt(req.query.sort)
   let priceRange = req.query.priceRange
-  let priceGT, priceLTE;
-  let params = {}
+  let priceGT = '';
+  let priceLTE='';
+  let params = {};
   if (priceRange != 'all') {
     switch (priceRange) {
       case '0':

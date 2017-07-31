@@ -52,7 +52,7 @@
 
               </ul>
               <div class="load-more" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="30">
-                loading...
+                <img src="./../assets/loading/loading-bubbles.svg" alt="loading..." v-show="loadingImg">
               </div>
             </div>
           </div>
@@ -104,6 +104,7 @@ export default {
       page:1,
       pageSize:8,
       busy:true,//滚动加载默认为true表示一开始时关闭滚动加载功能。
+      loadingImg:false,
     }
   },
   components: {
@@ -120,8 +121,10 @@ export default {
       //   page:this.page,
       //   pageSize:this.pageSize,
       // }
+      this.loadingImg = true;
       var sort = this.sortPriceFlag ? 1 : -1;
       axios.get('/goods'+'?page='+this.page+'&pageSize='+this.pageSize+'&sort='+sort+'&priceRange='+this.priceChecked).then((result) => {
+        this.loadingImg= false;
         let res = result.data;
         if(res.status == 1){
           if(flag){
