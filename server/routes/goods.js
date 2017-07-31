@@ -31,7 +31,7 @@ router.get('/', function (req, res, next) {
   let sort = parseInt(req.query.sort)
   let priceRange = req.query.priceRange
   let priceGT = '';
-  let priceLTE='';
+  let priceLTE = '';
   let params = {};
   if (priceRange != 'all') {
     switch (priceRange) {
@@ -56,7 +56,7 @@ router.get('/', function (req, res, next) {
         priceLTE = 5000;
         break;
     }
-      params = {
+    params = {
       'salePrice': {
         $gt: priceGT,
         $lte: priceLTE
@@ -89,8 +89,56 @@ router.get('/', function (req, res, next) {
   // res.end()
   // res.send(`/goods`);
 });
-router.get('/subgoods', function (req, res, next) {
-  res.send(`/subgoods`);
+router.post('/addCart', function (req, res, next) {
+  let userId = '100000077';
+  let productId = req.body.productId;
+  let Users = require('./../models/Users')
+  Users.findOne({
+    'userId': userId
+  }, function (err, userDoc) {
+    if (err) {
+      res.json({
+        status: 0,
+        msg: err.message,
+      })
+    } else {
+      if (userDoc) {
+        Goods.findOne({
+          'productId': productId
+        }, function (err1, doc1) {
+          if (err1) {
+            res.json({
+              status: 0,
+              msg: err1.message,
+            })
+          } else {
+            doc1.productNum = 1;
+            doc1.checked = 1;
+            userDoc.cartList.push(doc1);
+            userDoc.save(function (err2, doc2) {
+              if (err2) {
+                res.json({
+                  status: 0,
+                  msg: err2.message,
+                })
+              } else {
+                res.json({
+                  status:1,
+                  msg:'保存成功。',
+                  result:'success..'
+                })
+              }
+            })
+
+
+          }
+        })
+
+      }
+    }
+
+  })
+  // res.send(`/cart`);
 });
 
 module.exports = router;

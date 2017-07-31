@@ -45,14 +45,14 @@
                     <div class="name" v-text="item.productName"></div>
                     <div class="price" v-text="item.salePrice"></div>
                     <div class="btn-area">
-                      <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                      <a href="javascript:;" class="btn btn--m" @click="addToCart(item,index)">加入购物车</a>
                     </div>
                   </div>
                 </li>
 
               </ul>
               <div class="load-more" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="30">
-                <img src="./../assets/loading/loading-bubbles.svg" alt="loading..." v-show="loadingImg">
+                <img src="./../assets/loading/loading-spinning-bubbles.svg" alt="loading..." v-show="loadingImg">
               </div>
             </div>
           </div>
@@ -176,7 +176,19 @@ export default {
         this.getGoodsList(true)
       }, 1000)
     },
-
+    addToCart(item,index){
+      axios.post('goods/addCart',{
+        productId:item.productId,
+        deepbreath:'totsai'
+      }).then((res)=>{
+        let data = res.data;
+        if(data.status == '1'){
+          alert('保存成功。')
+        }else{
+          alert('mesg:'+data.msg)
+        }
+      })
+    },
   }
 }
 </script>
