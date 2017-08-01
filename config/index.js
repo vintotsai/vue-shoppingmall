@@ -31,6 +31,21 @@ module.exports = {
       //使用代理解决跨域问题
       '/goods':{
         target:'http://localhost:3000'
+      },
+      '/goods/*':{
+        target:'http://localhost:3000'
+      },
+      '/users':{
+        target:'http://localhost:3000'
+      },
+      '/login':{
+        target:'http://localhost:3000'
+      },
+      '/users/login':{
+        target:'http://localhost:3000'
+      },
+      '/users/*':{
+        target:'http://localhost:3000'
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"

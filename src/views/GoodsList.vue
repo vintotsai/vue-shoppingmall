@@ -180,7 +180,7 @@ export default {
       }, 1000)
     },
     addToCart(item,index){
-      axios.post('goods/addCart',{
+      axios.post('/goods/addCart',{
         productId:item.productId,
         deepbreath:'totsai'
       }).then((res)=>{

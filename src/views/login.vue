@@ -47,8 +47,16 @@
         console.log(this.name,this.pwd)
         if (!this.name.length) return this.info = '请输入正常的用户名!'
         if (!this.pwd.length) return this.info = '请输入正常的密码!'
-        axios.post('/users',{userName:this.name,userPwd:this.pwd}).then((res)=>{
-          console.log(res.data)
+        // axios.post('goods/addCart',{userName:this.name,userPwd:this.pwd}).then((response)=>{
+        axios.post('/users/login',{userName:this.name,userPwd:this.pwd}).then((response)=>{
+          let res = response.data
+          if(res.status == 0){
+            this.info = '登录失败！'
+          }else{
+            //
+            console.log('请求成功。')
+
+          }
         })
         // this.login({name: this.name, pwd: this.pwd})
         //   .then(() => {
