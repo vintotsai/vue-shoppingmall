@@ -10,7 +10,7 @@
         <!-- 响应式布局 当web端宽度小于一定值时显示 -->
         <div class="filter-nav">
           <span class="sortby">Sort by:</span>
-          <a href="javascript:void(0)" class="default cur">Default</a>
+          <a href="javascript:void(0)" class="default cur" @click="sortDefaultPrice">Default</a>
           <a href="javascript:void(0)" class="price" @click="sortPrice">按Price升序降序
             <svg class="icon icon-arrow-short">
               <use xlink:href="#icon-arrow-short"></use>
@@ -166,8 +166,11 @@ export default {
     },
     sortPrice(){
       this.sortPriceFlag = ! this.sortPriceFlag
-      console.log(this.sortPriceFlag)
       this.getGoodsList()
+    },
+    sortDefaultPrice(){
+      this.sortPriceFlag = true
+      this.getGoodsList()      
     },
     loadMore(){
       this.page++;
@@ -183,7 +186,7 @@ export default {
       }).then((res)=>{
         let data = res.data;
         if(data.status == '1'){
-          alert('保存成功。')
+          alert('添加成功。')
         }else{
           alert('mesg:'+data.msg)
         }

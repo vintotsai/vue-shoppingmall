@@ -23,34 +23,103 @@
       </p>
       <p class="info">{{info}}</p>
       <p>
-        <button @click="doLogin()">登陆
+        <button @click="doLogin">登陆
         </button>
       </p>
     </div>
   </section>
 </template>
-
 <script>
-// import Counter from './Counter'
+  // import {mapActions} from 'vuex'
+  // import {set}  from './../assets/js/cookieUtil'
+  import axios from 'axios'
 
-export default {
-  name: 'hello',
-  components:{
-    
-  },
-  data () {
-    return {
-      info:'',
-      name:'',
-      pwd:''
+  export default{
+    data(){
+      return {
+        name: '',
+        pwd: '',
+        info: ''
+      }
+    },
+    methods: {
+      doLogin(){
+        console.log(this.name,this.pwd)
+        if (!this.name.length) return this.info = '请输入正常的用户名!'
+        if (!this.pwd.length) return this.info = '请输入正常的密码!'
+        axios.post('/users',{userName:this.name,userPwd:this.pwd}).then((res)=>{
+          console.log(res.data)
+        })
+        // this.login({name: this.name, pwd: this.pwd})
+        //   .then(() => {
+        //     const date = new Date(Date.now() + 60000 * 30)
+        //     set('user', this.name, date, '/', window.location.hostname)
+        //     this.$router.push({path: '/console'})
+        //   })
+        //   .catch(msg => this.info = msg)
+      },
+      clearInfo(){
+        this.info = ''
+      },
+      // ...mapActions(['login'])
+    },
+    watch: {
+      name: 'clearInfo',
+      pwd: 'clearInfo'
     }
-  },
-  methods:{
   }
-}
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.login{
+  height:800px;
+}
+  .login .form{
+    width: 500px;
+    height: 400px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .form .icon i{
+    transition: all 4s;
+  }
 
+  .form .icon i:hover{
+    transform: rotate(1440deg);
+  }
+
+  .form p{
+    height: 50px;
+    text-align: center;
+    transition: all 0.4s;
+  }
+  .form .info {
+    margin: 10px;
+    font-size: 12px;
+    height: 20px;
+    color: red;
+  }
+  .form p input{
+    transition: all 0.4s;
+    width: 200px;
+    padding: 8px;
+    border-bottom: 1px solid green;
+  }
+  .form p input:focus{
+    width: 210px;
+  }
+  .form p button{
+    transition: all 0.4s;
+    color: black;
+    border: 1px solid green;
+    border-radius: 4px;
+    width: 60px;
+    height: 30px;
+  }
+  .form p button:hover{
+    background-color: green;
+    color: #FFF;
+  }
 </style>
