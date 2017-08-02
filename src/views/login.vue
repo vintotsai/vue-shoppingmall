@@ -47,17 +47,23 @@
         console.log(this.name,this.pwd)
         if (!this.name.length) return this.info = '请输入正常的用户名!'
         if (!this.pwd.length) return this.info = '请输入正常的密码!'
-        // axios.post('goods/addCart',{userName:this.name,userPwd:this.pwd}).then((response)=>{
         axios.post('/users/login',{userName:this.name,userPwd:this.pwd}).then((response)=>{
           let res = response.data
           if(res.status == 0){
             this.info = '登录失败！'
+            alert(res.msg)
           }else{
             //
-            console.log('请求成功。')
+            if(res.status == 1){
+              this.name = res.result.userName
+              // alert(res.msg)
+              // router.go('GoodsList')
+              this.$router.push({ path: 'goods' });
+
+            }
 
           }
-        })
+        }).catch((err)=>console.log(err.stack))
         // this.login({name: this.name, pwd: this.pwd})
         //   .then(() => {
         //     const date = new Date(Date.now() + 60000 * 30)
@@ -78,9 +84,9 @@
   }
 </script>
 <style scoped>
-.login{
-  height:800px;
-}
+  .login{
+    height:800px;
+  }
   .login .form{
     width: 500px;
     height: 400px;

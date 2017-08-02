@@ -15,7 +15,7 @@ export default new Router({
   mode:'hash', // hash和history
   routes: [
     {
-      path:'/login',
+      path:'/',
       name:'login',
       component:login
     },

@@ -13,7 +13,7 @@
           <a href="javascript:void(0)" class="default cur" @click="sortDefaultPrice">Default</a>
           <a href="javascript:void(0)" class="price" @click="sortPrice">按Price升序降序
             <svg class="icon icon-arrow-short">
-              <use xlink:href="#icon-arrow-short"></use>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-short"></use>
             </svg>
           </a>
           <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">Filter by</a>

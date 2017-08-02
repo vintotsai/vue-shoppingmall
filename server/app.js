@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 let ejs = require('ejs')
 
 var index = require('./routes/index');
+var test = require('./routes/test');
 var users = require('./routes/users');
 var goods = require('./routes/goods');
 
@@ -27,6 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index)
+app.use('/test', test)
 app.use('/users', users)
 app.use('/goods', goods)
 
