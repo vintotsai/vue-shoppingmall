@@ -11,7 +11,7 @@
         <div class="filter-nav">
           <span class="sortby">Sort by:</span>
           <a href="javascript:void(0)" class="default cur" @click="sortDefaultPrice">Default</a>
-          <a href="javascript:void(0)" class="price" @click="sortPrice">按Price升序降序
+          <a href="javascript:void(0)" class="price" @click="sortPrice">Price
             <svg class="icon icon-arrow-short">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-short"></use>
             </svg>
@@ -126,7 +126,7 @@ export default {
       axios.get('/goods'+'?page='+this.page+'&pageSize='+this.pageSize+'&sort='+sort+'&priceRange='+this.priceChecked).then((result) => {
         this.loadingImg= false;
         let res = result.data;
-        if(res.status == 1){
+        if(res.status == '0'){
           if(flag){
             this.goodsList = this.goodsList.concat(res.result.list)
             if(res.result.count<this.pageSize){

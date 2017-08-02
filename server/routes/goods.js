@@ -16,15 +16,8 @@ mongoose.connection.on("disconnected", function () {
   console.log(`mongodb 断开连接！`)
 })
 
+// 商品列表
 router.get('/', function (req, res, next) {
-  console.log(req.query)
-  // 变量解构赋值
-  // let [page,pageSize,sort,skip]=[parseInt(req.param('page')),parseInt(req.param('pageSize'))]
-
-  // let page = parseInt(req.query('page'))
-  // let pageSize = parseInt(req.query('pageSize'))
-  // let skip = (page - 1) * pageSize
-  // let sort = parseInt(req.query('sort'))
   let page = parseInt(req.query.page)
   let pageSize = parseInt(req.query.pageSize)
   let skip = (page - 1) * pageSize
@@ -71,24 +64,25 @@ router.get('/', function (req, res, next) {
   goodsModel.exec(function (err, doc) {
     if (err) {
       res.json({
-        status: 0,
+        status: '1',
         msg: err.message,
       })
     } else {
-      // console.log(doc)
-      res.json({
-        status: 1,
-        msg: "连接成功！",
-        result: {
-          count: doc.length,
-          list: doc
-        }
-      })
+      if (doc) {
+        res.json({
+          status: 0,
+          msg: "连接成功！",
+          result: {
+            count: doc.length,
+            list: doc
+          }
+        })
+      }
     }
   })
-  // res.end()
-  // res.send(`/goods`);
 });
+
+// 购物车
 router.post('/addCart', function (req, res, next) {
   let userId = '100000077';
   let productId = req.body.productId;
@@ -98,7 +92,7 @@ router.post('/addCart', function (req, res, next) {
   }, function (err, userDoc) {
     if (err) {
       res.json({
-        status: 0,
+        status: '1',
         msg: err.message,
       })
     } else {
@@ -107,7 +101,7 @@ router.post('/addCart', function (req, res, next) {
         let goodsItem = '';
         userDoc.cartList.forEach(function (element) {
           if (element.productId == productId) {
-            element.productNum+=1;
+            element.productNum += 1;
             element.checked = 1;
             goodsItem = element;
           }
@@ -116,12 +110,12 @@ router.post('/addCart', function (req, res, next) {
           userDoc.save(function (err2, doc2) {
             if (err2) {
               res.json({
-                status: 0,
+                status: '1',
                 msg: err2.message,
               })
             } else {
               res.json({
-                status: 1,
+                status: '0',
                 msg: '保存成功。',
                 result: 'success..'
               })
@@ -133,24 +127,22 @@ router.post('/addCart', function (req, res, next) {
           }, function (err1, doc1) {
             if (err1) {
               res.json({
-                status: 0,
+                status: '1',
                 msg: err1.message,
               })
             } else {
-              console.log(doc1)
               doc1.productNum = 1;
               doc1.checked = 1;
-              console.log(doc1)
               userDoc.cartList.push(doc1);
               userDoc.save(function (err2, doc2) {
                 if (err2) {
                   res.json({
-                    status: 0,
+                    status: '1',
                     msg: err2.message,
                   })
                 } else {
                   res.json({
-                    status: 1,
+                    status: '0',
                     msg: '保存成功。',
                     result: 'success..'
                   })

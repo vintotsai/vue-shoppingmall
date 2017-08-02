@@ -10,7 +10,7 @@
                type="text"
                name="userName"
                placeholder="用户名"
-               v-model.trim="name"
+               v-model.trim="userName"
         >
       </p>
       <p class="input">
@@ -18,12 +18,12 @@
         <input id="password"
                type="password"
                placeholder="密码"
-               v-model.trim="pwd"
+               v-model.trim="userPwd"
         >
       </p>
       <p class="info">{{info}}</p>
       <p>
-        <button @click="doLogin">登陆
+        <button @click="doLogin">登 录
         </button>
       </p>
     </div>
@@ -44,43 +44,30 @@
     },
     methods: {
       doLogin(){
-        console.log(this.name,this.pwd)
-        if (!this.name.length) return this.info = '请输入正常的用户名!'
-        if (!this.pwd.length) return this.info = '请输入正常的密码!'
-        axios.post('/users/login',{userName:this.name,userPwd:this.pwd}).then((response)=>{
-          let res = response.data
-          if(res.status == 0){
+        if (!this.userName.length) return this.info = '请输入正常的用户名!'
+        if (!this.userPwd.length) return this.info = '请输入正常的密码!'
+        axios.post('/users/login',{userName:this.userName,userPwd:this.userPwd}).then((response)=>{
+          let res = response.data;
+          if(res.status == '1'){
             this.info = '登录失败！'
             alert(res.msg)
           }else{
-            //
-            if(res.status == 1){
-              this.name = res.result.userName
-              // alert(res.msg)
-              // router.go('GoodsList')
-              this.$router.push({ path: 'goods' });
-
+            if(res.status == '0'){
+              this.userName = res.result.userName
+              this.$router.push({ path: 'goods' })
             }
-
           }
         }).catch((err)=>console.log(err.stack))
-        // this.login({name: this.name, pwd: this.pwd})
-        //   .then(() => {
-        //     const date = new Date(Date.now() + 60000 * 30)
-        //     set('user', this.name, date, '/', window.location.hostname)
-        //     this.$router.push({path: '/console'})
-        //   })
-        //   .catch(msg => this.info = msg)
       },
       clearInfo(){
         this.info = ''
       },
       // ...mapActions(['login'])
     },
-    watch: {
-      name: 'clearInfo',
-      pwd: 'clearInfo'
-    }
+    // watch: {
+    //   name: 'clearInfo',
+    //   pwd: 'clearInfo'
+    // }
   }
 </script>
 <style scoped>
