@@ -18,7 +18,7 @@
           <div class="navbar-menu-container">
             <!--<a href="/" class="navbar-link">我的账户</a>-->
             <span class="navbar-link"></span>
-            <a href="javascript:void(0)" class="navbar-link">Hello.</a>
+            <a href="javascript:void(0)" class="navbar-link">Hello,<span>{{userName}}</span></a>
             <a href="javascript:void(0)" class="navbar-link" @click="doLogout">Logout</a>
             <div class="navbar-cart-container">
               <span class="navbar-cart-count"></span>
@@ -37,7 +37,12 @@
   import axios from 'axios'
   export default {
     data(){
-      return{}
+      return{
+        userName:''
+      }
+    },
+    mounted(){
+      this.freshUpdate()
     },
     methods:{
       doLogout(){
@@ -49,6 +54,16 @@
           }
         }).catch((err)=>console.log(err.stack))
       },
+      freshUpdate(){
+        axios.get('/users/checkLogin').then((response)=>{
+          let res = response.data;
+          if(res.status = '0'){
+            this.userName = res.result;
+          }else{
+            alert('Oops未登录！')
+          }
+        })
+      }
     }
   }
 </script>

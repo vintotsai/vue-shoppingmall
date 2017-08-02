@@ -26,8 +26,12 @@ router.post('/login', function (req, res, next) {
         console.log(doc.userId)
         res.cookie("userId", doc.userId, {
           path: '/',
-          maxAge: 1000 * 60*2
-        })
+          maxAge: 1000 * 60*5
+        });
+        res.cookie("userName", doc.userName, {
+          path: '/',
+          maxAge: 1000 * 60*5
+        });
         res.json({
           status: '0',
           msg: '登录成功lol！',
@@ -50,5 +54,22 @@ router.post('/logout', function (req, res, next) {
     result: ''
   })
 });
+
+//
+router.get('/checkLogin',function(req, res, next){
+  if(req.cookies.userId){
+    res.json({
+      stauts:'0',
+      msg:'',
+      result:req.cookies.userName
+    })
+  }else{
+    res.json({
+      stauts:'1',
+      msg:'Oops~未登录',
+      result:''
+    })
+  }
+})
 
 module.exports = router;

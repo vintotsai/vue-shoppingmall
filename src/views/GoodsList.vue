@@ -123,7 +123,7 @@ export default {
       // }
       this.loadingImg = true;
       var sort = this.sortPriceFlag ? 1 : -1;
-      axios.get('/goods'+'?page='+this.page+'&pageSize='+this.pageSize+'&sort='+sort+'&priceRange='+this.priceChecked).then((result) => {
+      axios.get('/goods/list'+'?page='+this.page+'&pageSize='+this.pageSize+'&sort='+sort+'&priceRange='+this.priceChecked).then((result) => {
         this.loadingImg= false;
         let res = result.data;
         if(res.status == '0'){

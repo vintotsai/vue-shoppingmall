@@ -17,7 +17,7 @@ mongoose.connection.on("disconnected", function () {
 })
 
 // 商品列表
-router.get('/', function (req, res, next) {
+router.get('/list', function (req, res, next) {
   let page = parseInt(req.query.page)
   let pageSize = parseInt(req.query.pageSize)
   let skip = (page - 1) * pageSize
