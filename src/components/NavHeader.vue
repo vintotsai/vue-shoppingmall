@@ -19,7 +19,7 @@
             <!--<a href="/" class="navbar-link">我的账户</a>-->
             <span class="navbar-link"></span>
             <a href="javascript:void(0)" class="navbar-link">Hello.</a>
-            <!--<a href="javascript:void(0)" class="navbar-link">Logout</a>-->
+            <a href="javascript:void(0)" class="navbar-link" @click="doLogout">Logout</a>
             <div class="navbar-cart-container">
               <span class="navbar-cart-count"></span>
               <a class="navbar-link navbar-cart-link" href="/#/cart">
@@ -33,3 +33,22 @@
       </div>
     </header>
 </template>
+<script>
+  import axios from 'axios'
+  export default {
+    data(){
+      return{}
+    },
+    methods:{
+      doLogout(){
+        axios.post('/users/logout').then((response)=>{
+          let res = response.data;
+          if(res.status == '0'){
+            alert('logout successed.')
+            this.$router.push({ path: '/' })
+          }
+        }).catch((err)=>console.log(err.stack))
+      },
+    }
+  }
+</script>

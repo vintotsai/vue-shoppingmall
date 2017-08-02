@@ -37,8 +37,8 @@
   export default{
     data(){
       return {
-        name: '',
-        pwd: '',
+        userName: '',
+        userPwd: '',
         info: ''
       }
     },
