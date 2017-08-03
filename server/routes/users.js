@@ -72,4 +72,24 @@ router.get('/checkLogin',function(req, res, next){
   }
 })
 
+// 购物车清单
+router.get('/cartList',function(req,res,next){
+  let userId = req.cookies.userId;
+  Users.findOne({userId:userId},function(err,doc){
+    if(err){
+      res.json({
+        status:'1',
+        msg:'Oops~没有数据',
+        result:''
+      })
+    }else{
+      res.json({
+        status:'0',
+        msg:'获取数据成功！lol',
+        result:doc.cartList
+      })
+    }
+  })
+})
+
 module.exports = router;
