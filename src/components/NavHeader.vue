@@ -19,10 +19,10 @@
             <!--<a href="/" class="navbar-link">我的账户</a>-->
             <span class="navbar-link"></span>
             <a href="javascript:void(0)" class="navbar-link">Hello,<span>{{userName}}</span></a>
-            <a href="javascript:void(0)" class="navbar-link" @click="doLogout">Logout</a>
+            <a href="javascript:void(0)" class="navbar-link" title="退出登录" @click="doLogout">Logout</a>
             <div class="navbar-cart-container">
               <span class="navbar-cart-count"></span>
-              <a class="navbar-link navbar-cart-link" href="/#/cart">
+              <a class="navbar-link navbar-cart-link" href="/#/cart" title="进入购物车">
                 <svg class="navbar-cart-logo">
                   <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use>
                 </svg>
@@ -46,13 +46,14 @@
     },
     methods:{
       doLogout(){
-        axios.post('/users/logout').then((response)=>{
+        if(confirm('确定登出？')){
+          axios.post('/users/logout').then((response)=>{
           let res = response.data;
           if(res.status == '0'){
-            alert('logout successed.')
             this.$router.push({ path: '/' })
           }
-        }).catch((err)=>console.log(err.stack))
+         }).catch((err)=>console.log(err.stack))
+        }
       },
       freshUpdate(){
         axios.get('/users/checkLogin').then((response)=>{

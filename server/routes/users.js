@@ -26,11 +26,11 @@ router.post('/login', function (req, res, next) {
         console.log(doc.userId)
         res.cookie("userId", doc.userId, {
           path: '/',
-          maxAge: 1000 * 60*5
+          maxAge: 1000 * 60 * 30
         });
         res.cookie("userName", doc.userName, {
           path: '/',
-          maxAge: 1000 * 60*5
+          maxAge: 1000 * 60 * 30
         });
         res.json({
           status: '0',
@@ -56,37 +56,100 @@ router.post('/logout', function (req, res, next) {
 });
 
 // 刷新页面 检查是否已经登录
-router.get('/checkLogin',function(req, res, next){
-  if(req.cookies.userId){
+router.get('/checkLogin', function (req, res, next) {
+  if (req.cookies.userId) {
     res.json({
-      stauts:'0',
-      msg:'',
-      result:req.cookies.userName
+      stauts: '0',
+      msg: '',
+      result: req.cookies.userName
     })
-  }else{
+  } else {
     res.json({
-      stauts:'1',
-      msg:'Oops~未登录',
-      result:''
+      stauts: '1',
+      msg: 'Oops~未登录',
+      result: ''
     })
   }
 })
 
 // 购物车清单
-router.get('/cartList',function(req,res,next){
+router.get('/cartList', function (req, res, next) {
   let userId = req.cookies.userId;
-  Users.findOne({userId:userId},function(err,doc){
-    if(err){
+  Users.findOne({
+    userId: userId
+  }, function (err, doc) {
+    if (!doc) {
       res.json({
-        status:'1',
-        msg:'Oops~没有数据',
-        result:''
+        status: '1',
+        msg: 'Oops~当前未登录或没有数据',
+        result: ''
       })
-    }else{
+    } else {
       res.json({
-        status:'0',
-        msg:'获取数据成功！lol',
-        result:doc.cartList
+        status: '0',
+        msg: '获取数据成功！lol',
+        result: doc.cartList
+      })
+    }
+  })
+})
+
+// 删除商品列表
+router.post('/delCartList', function (req, res, next) {
+  let userId = req.cookies.userId;
+  let productId = req.body.productId;
+  let param = {
+    userId: userId,
+    productId: productId
+  }
+  Users.update({
+    userId: userId
+  }, {
+    $pull: {
+      cartList: {
+        productId: productId
+      }
+    }
+  }, function (err, doc) {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: 'Oops~出错额',
+        result: ''
+      })
+    } else {
+      res.json({
+        status: '0',
+        msg: '',
+        result: ''
+      })
+    }
+  })
+})
+
+// 增减商品列表
+router.post('/editCartList', function (req, res, next) {
+  let userId = req.cookies.userId;
+  let productId = req.body.productId;
+  let productNum = req.body.productNum;
+  // 修改子文档的数据
+  Users.update({
+    userId: userId,
+    'cartList.productId': productId
+  }, {
+    'cartList.$.productNum': productNum
+  }, function (err, doc) {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: err.message,
+        result: ''
+      })
+    } else {
+      res.json({
+        status: '0',
+        msg: '',
+        result: ''
       })
     }
   })

@@ -69,7 +69,7 @@
                     </a>
                   </div>
                   <div class="cart-item-pic">
-                    <img :src="'./../../static/'+item.productImage">
+                    <img :src="'./../../static/'+item.productImage" v-bind:alt="item.productName" v-bind:title="item.productName">
                   </div>
                   <div class="cart-item-title">
                     <div class="item-name">{{item.productName}}</div>
@@ -82,9 +82,9 @@
                   <div class="item-quantity">
                     <div class="select-self select-self-open">
                       <div class="select-self-area">
-                        <a class="input-sub">-</a>
+                        <a class="input-sub" @click="editCart('minus',item)">-</a>
                         <span class="select-ipt">{{item.productNum}}</span>
-                        <a class="input-add">+</a>
+                        <a class="input-add" @click="editCart('plus',item)">+</a>
                       </div>
                     </div>
                   </div>
@@ -94,7 +94,7 @@
                 </div>
                 <div class="cart-tab-5">
                   <div class="cart-item-opration">
-                    <a href="javascript:;" class="item-edit-btn">
+                    <a href="javascript:;" class="item-edit-btn" @click="del(item)">
                       <svg class="icon icon-del">
                         <use xlink:href="#icon-del"></use>
                       </svg>
@@ -161,6 +161,35 @@ export default {
         }
       })
     },
+    del(item){
+      if(confirm('确实删除？')){
+        let productId = item.productId;
+        axios.post('/users/delCartList',{productId:productId}).then((response)=>{
+          let res = response.data;
+          if(res.status == '0'){
+            console.log('deleted db.')
+            this.getCartList();
+          }
+        })
+      }
+    },
+    editCart(flag,item){
+      if(flag === 'minus'){
+        if(item.productNum <=1){
+          return
+        }
+        item.productNum --;
+
+      }else{
+        item.productNum ++;
+      }
+      axios.post('/users/editCartList',{productId:item.productId,productNum:item.productNum}).then((response)=>{
+        let res = response.data;
+        if(res.status == '0'){
+          console.log('修改成功。db')
+        }
+      })
+    }
   }
 }
 </script>
