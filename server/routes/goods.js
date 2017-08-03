@@ -156,4 +156,8 @@ router.post('/addCart', function (req, res, next) {
   })
 })
 
+router.get('/cart',function(req,res,next){
+  //
+})
+
 module.exports = router;

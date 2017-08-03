@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import login from '@/views/login'
+import Login from '@/views/Login'
 import GoodsList from './../views/GoodsList'
-import Image from './../views/Image'
-import Title from './../views/Title'
+// import Image from './../views/Image'
+// import Title from './../views/Title'
 import Cart from './../views/Cart'
 
 
@@ -17,34 +17,39 @@ export default new Router({
     {
       path:'/',
       name:'login',
-      component:login
+      component:Login
     },
     {
       path: '/goods',
-      name: 'GoodsList',
-      component: GoodsList,
-      children:[
-        {
-          path:'image',
-          name:'image',
-          component:Image
-        },
-        {
-          path:'title',
-          name:'title',
-          component:Title
-        },
-      ]
+      name: 'goods',
+      component: GoodsList
     },
-    // {
-    //   path: '/goodslist/:goodsId/user/:username',
-    //   name: 'GoodsList',
-    //   component: GoodsList
-    // }, 
     {
       path:'/cart',
       name:'cart',
       component:Cart,
     }
+    // {
+    //   path: '/goods',
+    //   name: 'GoodsList',
+    //   component: GoodsList,
+    //   children:[
+    //     {
+    //       path:'image',
+    //       name:'image',
+    //       component:Image
+    //     },
+    //     {
+    //       path:'title',
+    //       name:'title',
+    //       component:Title
+    //     },
+    //   ]
+    // },
+    // {
+    //   path: '/goodslist/:goodsId/user/:username',
+    //   name: 'GoodsList',
+    //   component: GoodsList
+    // }, 
   ]
 })

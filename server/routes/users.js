@@ -55,7 +55,7 @@ router.post('/logout', function (req, res, next) {
   })
 });
 
-//
+// 刷新页面 检查是否已经登录
 router.get('/checkLogin',function(req, res, next){
   if(req.cookies.userId){
     res.json({
