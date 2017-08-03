@@ -6,16 +6,7 @@ let userSchema = new Schema({
   'userName':String,
   'userPwd':String,
   'orderList':Array,
-  'cartList':[
-    {
-      'productId':String,
-      'productName':String,
-      'salePrice':String,
-      'productImage':String,
-      'productNum':{type:Number,default:1},
-      'checked':{type:Number,default:1},
-    }
-  ],
+  'cartList':Array,
   'addressList':[
     {
       'addressId':String,

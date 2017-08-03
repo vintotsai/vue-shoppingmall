@@ -82,7 +82,7 @@ router.get('/list', function (req, res, next) {
   })
 });
 
-// 购物车
+// 添加到购物车接口
 router.post('/addCart', function (req, res, next) {
   let userId = '100000077';
   let productId = req.body.productId;
