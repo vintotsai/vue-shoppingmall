@@ -184,7 +184,7 @@ export default {
           console.log('order ok.')
           let orderId = res.result.orderId;
           let orderTotal = res.result.orderTotal;
-          this.$router.push({path:'/payment?orderId='+orderId})
+          this.$router.push({path:'/payment?orderId='+orderId+'&orderTotal='+orderTotal})
         }
       })
     }

@@ -24,8 +24,8 @@
           <div class="order-create-main">
             <h3>Congratulations! <br>Your order is under processing!</h3>
             <p>
-              <span>Order ID：100000001</span>
-              <span>Order total：1000</span>
+              <span>Order ID：{{orderId}}</span>
+              <span>Order total：{{orderTotal | currency('￥')}}</span>
             </p>
             <div class="order-create-btn-wrap">
               <div class="btn-l-wrap">
@@ -52,6 +52,8 @@ export default {
   name: 'Payment',
   data() {
     return {
+      orderId:'',
+      orderTotal:''
     }
   },
   components: {
@@ -60,26 +62,18 @@ export default {
     NavBread
   },
   mounted () {
-    // this.init()
-  },
-  computed:{
+    this.init()
   },
   methods: {
-    // init(){
-    //   console.log(window.location.hash)
-    //   axios.get('/users/cartList').then((response)=>{
-    //     let res = response.data;
-    //     if(res.status == '0'){
-    //       this.cartList = res.result;
-    //       this.cartList.forEach((item)=>{
-    //         if(item.checked === 1){
-    //           this.subTotal += (item.salePrice * item.productNum)
-    //         }
-    //       })
-    //       this.total = this.subTotal + this.tax + this.shipping - this.discount;
-    //     }
-    //   })
-    // },
+    init(){
+      this.orderId = this.$route.query.orderId;
+      this.orderTotal = this.$route.query.orderTotal;
+      // axios.get('/users/cartList').then((response)=>{
+      //   let res = response.data;
+      //   if(res.status == '0'){
+      //   }
+      // })
+    },
   }
 }
 </script>
