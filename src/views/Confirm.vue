@@ -43,7 +43,6 @@
               <li><span>Order</span> confirmation</li>
             </ul>
           </div>
-
           <!-- order list -->
           <div class="page-title-normal checkout-title">
             <h2><span>Order content</span></h2>
@@ -88,26 +87,25 @@
               </ul>
             </div>
           </div>
-
           <!-- Price count -->
           <div class="price-count-wrap">
             <div class="price-count">
               <ul>
                 <li>
                   <span>Item subtotal:</span>
-                  <span>{{subTotal | currency('￥')}}</span>
+                  <span> {{subTotal | currency('￥')}}</span>
                 </li>
                 <li>
                   <span>Shipping:</span>
-                  <span>{{shipping | currency('￥')}}</span>
+                  <span> {{shipping | currency('￥')}}</span>
                 </li>
                 <li>
                   <span>Discount:</span>
-                  <span>{{discount | currency('￥')}}</span>
+                  <span> {{discount | currency('￥')}}</span>
                 </li>
                 <li>
                   <span>Tax:</span>
-                  <span>{{tax | currency('￥')}}</span>
+                  <span> {{tax | currency('￥')}}</span>
                 </li>
                 <li class="order-total-price">
                   <span>Order total:</span>
@@ -119,10 +117,11 @@
 
           <div class="order-foot-wrap">
             <div class="prev-btn-wrap">
-              <button class="btn btn--m">Previous</button>
+              <router-link class="btn btn--m" :to="{path:'/cart'}">Previous</router-link>
             </div>
             <div class="next-btn-wrap">
-              <button class="btn btn--m btn--red">Proceed to payment</button>
+              <button ></button>
+              <router-link class="btn btn--m btn--red" :to="{path:'/payment'}">Proceed to payment</router-link>
             </div>
           </div>
         </div>
