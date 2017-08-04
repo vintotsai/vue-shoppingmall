@@ -59,7 +59,7 @@
           <div class="addr-list-wrap">
             <div class="addr-list">
               <ul>
-                <li v-for="(item, index) in addressListLimited" v-bind:class="{'check':checkedIndex === index}" @click="checkedIndex = index">
+                <li v-for="(item, index) in addressListLimited" v-bind:class="{'check':checkedIndex === index}" @click="checkedIndex = index;selectedAddressId = item.addressId">
                   <dl>
                     <dt>{{item.userName}}</dt>
                     <dd class="address">{{item.streetName}}</dd>
@@ -118,7 +118,7 @@
             </div>
           </div>
           <div class="next-btn-wrap">
-            <router-link class="btn btn--m btn--red" to="/orderConfirm">Next</router-link>
+            <router-link class="btn btn--m btn--red" v-bind:to="{path:'/orderConfirm',query:{'addressId':selectedAddressId}}">Next</router-link>
           </div>
         </div>
       </div>
@@ -138,6 +138,7 @@ export default {
     return {
       limit:3,
       checkedIndex: 0,
+      selectedAddressId:'',
       addressList:[]
     }
   },
