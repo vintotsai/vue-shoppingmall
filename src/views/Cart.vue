@@ -142,7 +142,6 @@ export default {
   data(){
     return {
       cartList:[],
-      // checkAllInfo:'Delete-all'
     }
   },
   components:{
@@ -210,9 +209,7 @@ export default {
       })
     },
     toggleCheckAll(){
-      console.log(this.checkAllFlag)
       let flag = !this.checkAllFlag;
-      // this.checkAllInfo = flag ? 'Delete-all' : 'Select-all';
       this.cartList.forEach((item)=>{
         item.checked = flag ? 1 : 0 ;
       })

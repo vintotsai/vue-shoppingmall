@@ -162,31 +162,34 @@ router.post('/checkAllList', function (req, res, next) {
   let userId = req.cookies.userId;
   let checkedAll = req.body.checkedAll;
   // 修改子文档的数据
-  Users.findOne({userId:userId},function(err,user){
-    if(err){
+  Users.findOne({
+    userId: userId
+  }, function (err, user) {
+    if (err) {
       res.json({
-        stauts:'1',
-        msg:'oops',
-        result:''
+        stauts: '1',
+        msg: err.message,
+        result: ''
       })
-    }else{
-      if(user){
-        user.cartList.forEach((item)=>{
+    } else {
+      if (user) {
+        user.cartList.forEach((item) => {
           item.checked = checkedAll;
         });
-        //todo
-        user.save(function(err,doc){
-          if(err){
+        console.log(user.cartList)
+        user.cartList.splice(0, 0); //坑！https://cnodejs.org/topic/516ab9c96d38277306376cad
+        user.save(function (err2, doc2) {
+          if (err2) {
             res.json({
-              stauts:'1',
-              msg:err.message,
-              result:''
+              status: '1',
+              msg: err2.message,
+              result: ''
             })
-          }else{
+          } else {
             res.json({
-              stauts:'0',
-              msg:'',
-              result:''
+              status: '0',
+              msg: '保存成功。',
+              result: 'success..'
             })
           }
         })
