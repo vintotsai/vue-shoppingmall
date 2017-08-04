@@ -199,26 +199,79 @@ router.post('/checkAllList', function (req, res, next) {
 })
 
 // 获取地址接口
-router.get('/addressList',function(req,res,next){
+router.get('/addressList', function (req, res, next) {
   let userId = req.cookies.userId;
-  Users.findOne({userId:userId},function(err,doc){
-    if(err){
+  Users.findOne({
+    userId: userId
+  }, function (err, doc) {
+    if (err) {
       res.json({
-        status:'1',
-        msg:err.message,
-        result:''
+        status: '1',
+        msg: err.message,
+        result: ''
       })
     } else {
-      if(doc){
+      if (doc) {
         res.json({
-          status:'0',
-          msg:'',
-          result:doc.addressList
+          status: '0',
+          msg: '',
+          result: doc.addressList
         })
       }
     }
   })
 })
 
+// 设置默认地址
+router.post('/setDefault', function (req, res, next) {
+  let userId = req.cookies.userId,
+    addressId = req.body.addressId;
+  if (!addressId) {
+    res.json({
+      status: '10003',
+      msg: 'addressId is null!',
+      result: ''
+    })
+  } else {
+    Users.findOne({
+      userId: userId
+    }, function (err, doc) {
+      if (err) {
+        res.json({
+          status: '1',
+          msg: err.message,
+          result: ''
+        })
+      } else {
+        if (doc) {
+          let addressList = doc.addressList;
+          addressList.forEach((item) => {
+            if (item.addressId == addressId) {
+              item.isDefault = true
+            } else {
+              item.isDefault = false
+            }
+          })
+          doc.save(function (err, doc2) {
+            if (err) {
+              res.json({
+                status: '1',
+                msg: err1.message,
+                result: ''
+              })
+            } else {
+              res.json({
+                status: '0',
+                msg: '设置默认地址成功！lol',
+                result: ''
+              })
+            }
+          })
+        }
+      }
+    })
+  }
+
+})
 
 module.exports = router;

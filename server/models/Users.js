@@ -13,7 +13,7 @@ let userSchema = new Schema({
       'userName':String,
       'streetName':String,
       'postCode':String,
-      'isDefault':String,
+      'isDefault':Boolean,
       'tel':String
     }
   ]

@@ -72,9 +72,9 @@
                     </a>
                   </div>
                   <div class="addr-opration addr-set-default">
-                    <a href="javascript:;" class="addr-set-default-btn"><i>Set default</i></a>
+                    <a href="javascript:;" class="addr-set-default-btn" v-show="!item.isDefault" @click="setDefault(item.addressId)"><i>Set default</i></a>
                   </div>
-                  <div class="addr-opration addr-default">Default address</div>
+                  <div class="addr-opration addr-default" v-if="item.isDefault">Default address</div>
                 </li>
                 <li class="addr-new">
                   <div class="add-new-inner">
@@ -169,6 +169,16 @@ export default {
       } else {
         this.limit = 3
       }
+    },
+    setDefault(addressId){
+      console.log(addressId)
+      axios.post('/users/setDefault',{addressId:addressId}).then((response)=>{
+        let res = response.data;
+        if(res.status == '0'){
+          alert(res.msg)
+          this.init()
+        }
+      })
     },
   }
 }
