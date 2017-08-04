@@ -198,5 +198,27 @@ router.post('/checkAllList', function (req, res, next) {
   })
 })
 
+// 获取地址接口
+router.get('/addressList',function(req,res,next){
+  let userId = req.cookies.userId;
+  Users.findOne({userId:userId},function(err,doc){
+    if(err){
+      res.json({
+        status:'1',
+        msg:err.message,
+        result:''
+      })
+    } else {
+      if(doc){
+        res.json({
+          status:'0',
+          msg:'',
+          result:doc.addressList
+        })
+      }
+    }
+  })
+})
+
 
 module.exports = router;

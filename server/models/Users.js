@@ -14,6 +14,7 @@ let userSchema = new Schema({
       'streetName':String,
       'postCode':String,
       'isDefault':String,
+      'tel':String
     }
   ]
 })
