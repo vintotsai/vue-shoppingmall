@@ -67,7 +67,7 @@
                     <dd class="tel">{{item.tel}}</dd>
                   </dl>
                   <div class="addr-opration addr-del">
-                    <a href="javascript:;" class="addr-del-btn">
+                    <a href="javascript:;" class="addr-del-btn" @click="delAddr(item.addressId)">
                       <svg class="icon icon-del"><use xlink:href="#icon-del"></use></svg>
                     </a>
                   </div>
@@ -118,7 +118,7 @@
             </div>
           </div>
           <div class="next-btn-wrap">
-            <a class="btn btn--m btn--red">Next</a>
+            <router-link class="btn btn--m btn--red" to="/orderConfirm">Next</router-link>
           </div>
         </div>
       </div>
@@ -171,7 +171,6 @@ export default {
       }
     },
     setDefault(addressId){
-      console.log(addressId)
       axios.post('/users/setDefault',{addressId:addressId}).then((response)=>{
         let res = response.data;
         if(res.status == '0'){
@@ -179,6 +178,17 @@ export default {
           this.init()
         }
       })
+    },
+    delAddr(addressId){
+      if(confirm('确认删除地址？')){
+        axios.post('/users/delAddress',{addressId:addressId}).then((response)=>{
+        let res = response.data;
+        if(res.status == '0'){
+          console.log('del ok')
+          this.init()
+        }
+      })
+      }
     },
   }
 }
