@@ -43,7 +43,7 @@
                   </div>
                   <div class="main">
                     <div class="name" v-text="item.productName"></div>
-                    <div class="price" v-text="item.salePrice"></div>
+                    <div class="price">{{item.salePrice | currency('￥')}}</div>
                     <div class="btn-area">
                       <a href="javascript:;" class="btn btn--m" @click="addToCart(item,index)">加入购物车</a>
                     </div>
@@ -70,6 +70,8 @@ import NavHeader from './../components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '@/components/NavBread'
 import axios from 'axios'
+// import { currency } from '@/util/currency'
+
 export default {
   name: 'GoodsList',
   data() {
@@ -115,6 +117,9 @@ export default {
   mounted: function () {
     this.getGoodsList()
   },
+  // filters:{
+  //   currency:currency
+  // },
   methods: {
     getGoodsList(flag) {
       // var param = {

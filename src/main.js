@@ -10,6 +10,7 @@ import './assets/css/login.css'
 import './assets/css/product.css'
 import VueLazyload from 'vue-lazyload'
 import infiniteScroll from 'vue-infinite-scroll'
+import { currency } from './util/currency'
 
 Vue.config.productionTip = false
 
@@ -19,6 +20,9 @@ Vue.use(VueLazyload,{
 })
 // 滚动加载
 Vue.use(infiniteScroll)
+
+// 定义全局过滤器
+Vue.filter("currency",currency)
 
 /* eslint-disable no-new */
 new Vue({

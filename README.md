@@ -8,6 +8,11 @@
 > 后端框架 express  
 > 数据库  mongoDB 
  
+辅助技能：
+> 图片懒加载 vue-lazyload
+> 无线滚动插件 infinite-scroll
+> 全局过滤器vs局部过滤器 ：货币过滤器 currency
+
 ## Build Setup
 
 ``` bash
