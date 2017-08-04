@@ -10,8 +10,7 @@
       <div class="navbar">
         <div class="navbar-left-container">
           <a href="/#/goods" title="首页购物">
-            <!--<img class="navbar-brand-logo" src="static/logo.png">-->
-            <span>Logo</span>
+            <img class="navbar-brand-logo" src="static/logo.png">
           </a>
         </div>
         <div class="navbar-right-container" style="display: flex;">

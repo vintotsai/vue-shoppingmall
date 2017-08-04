@@ -76,7 +76,7 @@
                   </div>
                 </div>
                 <div class="cart-tab-2">
-                  <div class="item-price">{{item.salePrice}}</div>
+                  <div class="item-price">{{item.salePrice | currency('￥')}}</div>
                 </div>
                 <div class="cart-tab-3">
                   <div class="item-quantity">
@@ -90,7 +90,7 @@
                   </div>
                 </div>
                 <div class="cart-tab-4">
-                  <div class="item-price-total">{{item.productNum * item.salePrice}}</div>
+                  <div class="item-price-total">{{(item.productNum * item.salePrice) | currency('￥')}}</div>
                 </div>
                 <div class="cart-tab-5">
                   <div class="cart-item-opration">
@@ -119,7 +119,7 @@
             </div>
             <div class="cart-foot-r">
               <div class="item-total">
-                Item total: <span class="total-price">500</span>
+                Total money: <span class="total-price">{{totalMoney | currency('￥')}}</span>
               </div>
               <div class="btn-wrap">
                 <a class="btn btn--red">Checkout</a>
@@ -137,6 +137,8 @@ import NavHeader from './../components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '@/components/NavBread'
 import axios from 'axios'
+// 引入货币过滤器函数
+import { currency } from '@/util/currency'
 
 export default {
   data(){
@@ -166,7 +168,23 @@ export default {
       })
       return i
     },
+    totalMoney(){
+      let money = 0
+      this.cartList.forEach((item)=>{
+        if(item.checked === 1){
+          money +=(item.salePrice*item.productNum)
+        }
+      })
+      return money
+    },
 
+  },
+  filters:{
+    // 过滤器原理 传入一个值，返回一个新的值。(可以根据需要，如日期格式化，数字格式化做过滤)
+    // filter1:filter1(val){
+    //   return 'newVal'
+    // },
+    currency:currency
   },
   methods:{
     getCartList(){

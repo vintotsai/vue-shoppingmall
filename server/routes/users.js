@@ -177,7 +177,7 @@ router.post('/checkAllList', function (req, res, next) {
           item.checked = checkedAll;
         });
         console.log(user.cartList)
-        user.cartList.splice(0, 0); //坑！https://cnodejs.org/topic/516ab9c96d38277306376cad
+        user.cartList.splice(0, 0); //解决了坑！https://cnodejs.org/topic/516ab9c96d38277306376cad 保存失败。
         user.save(function (err2, doc2) {
           if (err2) {
             res.json({
