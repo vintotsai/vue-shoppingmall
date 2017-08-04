@@ -127,17 +127,19 @@ router.post('/delCartList', function (req, res, next) {
   })
 })
 
-// 增减商品列表
+// 增减/是否选中 商品列表
 router.post('/editCartList', function (req, res, next) {
   let userId = req.cookies.userId;
   let productId = req.body.productId;
   let productNum = req.body.productNum;
+  let checked = req.body.checked;
   // 修改子文档的数据
   Users.update({
     userId: userId,
     'cartList.productId': productId
   }, {
-    'cartList.$.productNum': productNum
+    'cartList.$.productNum': productNum,
+    'cartList.$.checked': checked
   }, function (err, doc) {
     if (err) {
       res.json({
@@ -154,5 +156,43 @@ router.post('/editCartList', function (req, res, next) {
     }
   })
 })
+
+// 是否全选 商品列表
+router.post('/checkAllList', function (req, res, next) {
+  let userId = req.cookies.userId;
+  let checkedAll = req.body.checkedAll;
+  // 修改子文档的数据
+  Users.findOne({userId:userId},function(err,user){
+    if(err){
+      res.json({
+        stauts:'1',
+        msg:'oops',
+        result:''
+      })
+    }else{
+      if(user){
+        user.cartList.forEach((item)=>{
+          item.checked = checkedAll;
+        });
+        user.save(function(err,doc){
+          if(err){
+            res.json({
+              stauts:'1',
+              msg:err.message,
+              result:''
+            })
+          }else{
+            res.json({
+              stauts:'0',
+              msg:'',
+              result:''
+            })
+          }
+        })
+      }
+    }
+  })
+})
+
 
 module.exports = router;

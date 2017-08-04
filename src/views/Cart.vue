@@ -62,7 +62,7 @@
               <li v-for="item in cartList"> 
                 <div class="cart-tab-1">
                   <div class="cart-item-check">
-                    <a href="javascipt:;" class="checkbox-btn item-check-btn" v-bind:class="{'check':item.checked === 1}">
+                    <a href="javascipt:void(0);" class="checkbox-btn item-check-btn" v-bind:class="{'check':item.checked === 1}" @click.prevent="editCart('checked',item)">
                       <svg class="icon icon-ok">
                         <use xlink:href="#icon-ok"></use>
                       </svg>
@@ -82,9 +82,9 @@
                   <div class="item-quantity">
                     <div class="select-self select-self-open">
                       <div class="select-self-area">
-                        <a class="input-sub" @click="editCart('minus',item)">-</a>
+                        <a class="input-sub" @click.prevent="editCart('minus',item)">-</a>
                         <span class="select-ipt">{{item.productNum}}</span>
-                        <a class="input-add" @click="editCart('plus',item)">+</a>
+                        <a class="input-add" @click.prevent="editCart('plus',item)">+</a>
                       </div>
                     </div>
                   </div>
@@ -109,11 +109,11 @@
           <div class="cart-foot-inner">
             <div class="cart-foot-l">
               <div class="item-all-check">
-                <a href="javascipt:;">
-                  <span class="checkbox-btn item-check-btn">
+                <a href="javascipt:;" @click.prevent="toggleCheckAll">
+                  <span class="checkbox-btn item-check-btn" v-bind:class="{'checked':checkAllFlag}">
                       <svg class="icon icon-ok"><use xlink:href="#icon-ok"/></svg>
                   </span>
-                  <span>Select all</span>
+                  <span v-text="checkAllInfo"></span>
                 </a>
               </div>
             </div>
@@ -141,7 +141,9 @@ import axios from 'axios'
 export default {
   data(){
     return {
-      cartList:[]
+      cartList:[],
+      checkAllFlag:true,
+      checkAllInfo:'Delete-all'
     }
   },
   components:{
@@ -180,16 +182,34 @@ export default {
         }
         item.productNum --;
 
-      }else{
+      }else if(flag === 'plus'){
         item.productNum ++;
+      }else{
+        item.checked  = item.checked == 1 ? 0 : 1;
       }
-      axios.post('/users/editCartList',{productId:item.productId,productNum:item.productNum}).then((response)=>{
+      axios.post('/users/editCartList',{productId:item.productId,productNum:item.productNum,checked:item.checked}).then((response)=>{
         let res = response.data;
         if(res.status == '0'){
           console.log('修改成功。db')
         }
       })
-    }
+    },
+    toggleCheckAll(){
+      this.checkAllFlag = !this.checkAllFlag;
+      this.checkAllInfo = this.checkAllFlag ? 'Delete-all' : 'Select-all';
+      this.cartList.forEach((item)=>{
+        item.checked = this.checkAllFlag ? 1 : 0 ;
+      })
+      axios.post('/users/checkAllList',{
+        checkedAll:this.checkAllFlag ? 1 : 0
+      }).then((response)=>{
+        let res = response.data;
+        if(res.status == 0){
+          console.log('db suc.')
+        }
+      })
+    },
+
   }
 }
 </script>
