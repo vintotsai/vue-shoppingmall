@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+require('./../util/util')
 
 const Users = require('./../models/Users')
 
@@ -277,7 +278,7 @@ router.post('/setDefault', function (req, res, next) {
 router.post('/delAddress', function (req, res, next) {
   let userId = req.cookies.userId;
   let addressId = req.body.addressId;
-  
+
   Users.update({
     userId: userId
   }, {
@@ -298,6 +299,75 @@ router.post('/delAddress', function (req, res, next) {
         status: '0',
         msg: '',
         result: ''
+      })
+    }
+  })
+})
+
+// 生成订单接口
+router.post('/payment', function (req, res, next) {
+  let userId = req.cookies.userId;
+  let addressId = req.body.addressId;
+  let totalPayment = req.body.totalPayment;
+
+  Users.findOne({
+    userId: userId
+  }, function (err, user) {
+    if (err) {
+      res.json({
+        status: '1',
+        msg: err.message,
+        result: ''
+      })
+    } else {
+      // 保存用户选中的收货地址
+      let address = '';
+      user.addressList.forEach((item) => {
+        if (item.addressId == addressId) {
+          address = item;
+        }
+      })
+      // 保存用户订单
+      let goodsList = [];
+      user.cartList.filter((item) => {
+        if (item.checked == 1) {
+          goodsList.push(item)
+        }
+      })
+
+      // 生成订单
+      let platform = '922'
+      let r1 = Math.floor(Math.random()*10);
+      let r2 = Math.floor(Math.random()*10);
+      let sysDate = new Date().Format('yyyyMMddhhmmss');
+      let createDate = new Date().Format('yyyy-MM-dd hh:mm:ss');
+      let orderId = platform + r1 + sysDate + r2;
+      let order = {
+        orderId: orderId,
+        createDate: createDate,
+        orderTotal: totalPayment,
+        address: address,
+        goodsList: goodsList,
+        orderStatus: '1'
+      }
+      user.orderList.push(order)
+      user.save(function (err1, doc1) {
+        if (err1) {
+          res.json({
+            status: '1',
+            msg: err1.message,
+            result: ''
+          })
+        } else {
+          res.json({
+            status: '0',
+            msg: '',
+            result: {
+              orderId:order.orderId,
+              orderTotal:order.orderTotal
+            }
+          })
+        }
       })
     }
   })

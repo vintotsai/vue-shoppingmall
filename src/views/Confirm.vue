@@ -120,8 +120,7 @@
               <router-link class="btn btn--m" :to="{path:'/cart'}">Previous</router-link>
             </div>
             <div class="next-btn-wrap">
-              <button ></button>
-              <router-link class="btn btn--m btn--red" :to="{path:'/payment'}">Proceed to payment</router-link>
+              <a class="btn btn--m btn--red"  @click="doPayment">Proceed to payment</a>
             </div>
           </div>
         </div>
@@ -174,6 +173,21 @@ export default {
         }
       })
     },
+    doPayment(){
+      let addressId = this.$route.query.addressId;
+      axios.post('/users/payment',{
+        addressId:addressId,
+        totalPayment:this.total
+      }).then((response)=>{
+        let res = response.data;
+        if(res.status == '0'){
+          console.log('order ok.')
+          let orderId = res.result.orderId;
+          let orderTotal = res.result.orderTotal;
+          this.$router.push({path:'/payment?orderId='+orderId})
+        }
+      })
+    }
   }
 }
 </script>
