@@ -57,7 +57,7 @@
               <ul>
                 <li v-for="(item,index) in goodsList">
                   <div class="pic">
-                    <a href="#">
+                    <a >
                       <img v-lazy="'./static/'+item.productImage" alt="商品图">
                     </a>
                   </div>

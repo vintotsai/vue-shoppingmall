@@ -11,6 +11,9 @@ import './assets/css/product.css'
 import VueLazyload from 'vue-lazyload'
 import infiniteScroll from 'vue-infinite-scroll'
 import { currency } from './util/currency'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+
 
 Vue.config.productionTip = false
 
@@ -20,6 +23,10 @@ Vue.use(VueLazyload,{
 })
 // 滚动加载
 Vue.use(infiniteScroll)
+
+//ui
+Vue.use(ElementUI)
+
 
 // 定义全局过滤器
 Vue.filter("currency",currency)
