@@ -113,7 +113,7 @@
                   <span class="checkbox-btn item-check-btn" v-bind:class="{'checked':checkAllFlag}">
                       <svg class="icon icon-ok"><use xlink:href="#icon-ok"/></svg>
                   </span>
-                  <span v-text="checkAllInfo"></span>
+                  <span> Select-all</span>
                 </a>
               </div>
             </div>
@@ -142,8 +142,7 @@ export default {
   data(){
     return {
       cartList:[],
-      checkAllFlag:true,
-      checkAllInfo:'Delete-all'
+      // checkAllInfo:'Delete-all'
     }
   },
   components:{
@@ -153,6 +152,22 @@ export default {
   },
   mounted(){
     this.getCartList();
+  },
+  // 实时计算
+  computed:{
+    checkAllFlag(){
+      return this.checkedCount == this.cartList.length
+    },
+    checkedCount(){
+      var i = 0;
+      this.cartList.forEach((item)=>{
+        if(item.checked === 1 ){
+          i += 1;
+        }
+      })
+      return i
+    },
+
   },
   methods:{
     getCartList(){
@@ -195,13 +210,14 @@ export default {
       })
     },
     toggleCheckAll(){
-      this.checkAllFlag = !this.checkAllFlag;
-      this.checkAllInfo = this.checkAllFlag ? 'Delete-all' : 'Select-all';
+      console.log(this.checkAllFlag)
+      let flag = !this.checkAllFlag;
+      // this.checkAllInfo = flag ? 'Delete-all' : 'Select-all';
       this.cartList.forEach((item)=>{
-        item.checked = this.checkAllFlag ? 1 : 0 ;
+        item.checked = flag ? 1 : 0 ;
       })
       axios.post('/users/checkAllList',{
-        checkedAll:this.checkAllFlag ? 1 : 0
+        checkedAll:flag ? 1 : 0
       }).then((response)=>{
         let res = response.data;
         if(res.status == 0){

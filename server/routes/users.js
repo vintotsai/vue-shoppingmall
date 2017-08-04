@@ -174,6 +174,7 @@ router.post('/checkAllList', function (req, res, next) {
         user.cartList.forEach((item)=>{
           item.checked = checkedAll;
         });
+        //todo
         user.save(function(err,doc){
           if(err){
             res.json({
