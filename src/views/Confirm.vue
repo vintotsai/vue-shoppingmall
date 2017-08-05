@@ -77,7 +77,6 @@
                           <span class="select-ipt">×{{item.productNum}}</span>
                         </div>
                       </div>
-                      <div class="item-stock item-stock-no">In Stock</div>
                     </div>
                   </div>
                   <div class="cart-tab-4">

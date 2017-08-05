@@ -1,5 +1,6 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
+let port = 3110
 
 module.exports = {
   build: {
@@ -29,23 +30,17 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       //使用代理解决跨域问题
-      '/goods':{
-        target:'http://localhost:3000'
+      '/goods': {
+        target: `http://localhost:${ port }`
       },
-      '/goods/*':{
-        target:'http://localhost:3000'
+      '/goods/*': {
+        target: `http://localhost:${ port }`
       },
-      '/users':{
-        target:'http://localhost:3000'
+      '/users': {
+        target: `http://localhost:${ port }`
       },
-      '/login':{
-        target:'http://localhost:3000'
-      },
-      '/users/login':{
-        target:'http://localhost:3000'
-      },
-      '/users/*':{
-        target:'http://localhost:3000'
+      '/users/*': {
+        target: `http://localhost:${ port }`
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"

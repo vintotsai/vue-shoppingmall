@@ -433,7 +433,7 @@ html {
 }
 
 .cart-item-list .cart-tab-3 {
-  padding-top: 48px;
+  padding-top: 60px;
 }
 
 .cart-item-list .cart-tab-4 {
@@ -687,7 +687,7 @@ html {
   }
 
   .cart-item-list .cart-tab-2 {
-    display: none;
+    /* display: none; */
   }
 
   .cart-item-list .cart-tab-3 {
