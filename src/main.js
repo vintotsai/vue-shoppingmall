@@ -24,7 +24,7 @@ Vue.use(VueLazyload,{
 // 滚动加载
 Vue.use(infiniteScroll)
 
-//ui
+// elm ui
 Vue.use(ElementUI)
 
 

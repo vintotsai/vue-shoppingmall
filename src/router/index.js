@@ -6,6 +6,7 @@ import Cart from './../views/Cart'
 import Address from './../views/Address'
 import Confirm from './../views/Confirm'
 import Payment from './../views/Payment'
+import LoginTest from './../views/LoginTest'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path:'/',
       name:'login',
       component:Login
+    },
+    {
+      path:'/test',
+      name:'test',
+      component:LoginTest
     },
     {
       path: '/goods',
