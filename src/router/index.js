@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Login from '@/views/Login'
 import GoodsList from './../views/GoodsList'
 import Cart from './../views/Cart'
 import Address from './../views/Address'
 import Confirm from './../views/Confirm'
 import Payment from './../views/Payment'
-import LoginTest from './../views/LoginTest'
+import LoginTest from '@/views/LoginTest'
 
 Vue.use(Router)
 
@@ -16,7 +17,8 @@ export default new Router({
     {
       path:'/',
       name:'login',
-      component:Login
+      component:Login,
+      // hidden:true
     },
     {
       path:'/test',
