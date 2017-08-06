@@ -38,6 +38,12 @@ router.post('/login', function (req, res, next) {
           msg: '登录成功lol！',
           result: doc
         })
+      } else {
+        res.json({
+          status: '1',
+          msg: '账号or密码错误！',
+          result: ''
+        })
       }
     }
   })

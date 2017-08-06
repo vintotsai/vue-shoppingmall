@@ -49,8 +49,7 @@
         axios.post('/users/login',{userName:this.userName,userPwd:this.userPwd}).then((response)=>{
           let res = response.data;
           if(res.status == '1'){
-            this.info = '登录失败！'
-            alert(res.msg)
+            this.info = res.msg;
           }else{
             if(res.status == '0'){
               this.userName = res.result.userName
