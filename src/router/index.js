@@ -8,6 +8,7 @@ import Address from './../views/Address'
 import Confirm from './../views/Confirm'
 import Payment from './../views/Payment'
 import LoginTest from '@/views/LoginTest'
+import video from '@/views/test-video'
 
 Vue.use(Router)
 
@@ -49,6 +50,11 @@ export default new Router({
       path:'/payment',
       name:'payment',
       component:Payment,
+    },
+    {
+      path:'/video',
+      name:'video',
+      component:video,
     }
     // {
     //   path: '/goods',
