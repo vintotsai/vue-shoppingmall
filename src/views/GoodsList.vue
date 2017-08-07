@@ -29,12 +29,13 @@
       <div class="container">
         <!-- 响应式布局 当web端宽度小于一定值时显示 -->
         <div class="filter-nav">
-          <span class="sortby">Sort by:</span>
-          <a href="javascript:void(0)" class="default cur" @click="sortDefaultPrice">Default</a>
-          <a href="javascript:void(0)" class="price" @click="sortPrice">Price
-            <svg class="icon icon-arrow-short">
+          <span class="sortby">Sort by（Price）:</span>
+          <a href="javascript:void(0)" class="default" v-bind:class="{'cur':sortFlag === 1}" @click="sortDefaultPrice">Ascending</a>
+          <span> | </span>
+          <a href="javascript:void(0)" class="price" v-bind:class="{'cur':sortFlag === 2}" @click="sortPrice">Descending
+            <!--<svg class="icon icon-arrow-short">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-short"></use>
-            </svg>
+            </svg>-->
           </a>
           <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">Filter by</a>
         </div>
@@ -123,6 +124,7 @@ export default {
       filterPopFlag:false,
       overlayFlag:false,
       sortPriceFlag:true, //true代表1升序排列
+      sortFlag:1,
       page:1,
       pageSize:8,
       busy:true,//滚动加载默认为true表示一开始时关闭滚动加载功能。
@@ -191,10 +193,12 @@ export default {
     },
     sortPrice(){
       this.sortPriceFlag = ! this.sortPriceFlag
+      this.sortFlag = 2
       this.getGoodsList()
     },
     sortDefaultPrice(){
       this.sortPriceFlag = true
+      this.sortFlag = 1
       this.getGoodsList()      
     },
     loadMore(){
