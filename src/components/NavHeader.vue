@@ -16,10 +16,10 @@
         </div>
         <div class="navbar-right-container" style="display: flex;">
           <div class="navbar-menu-container">
-            <!--<a href="/" class="navbar-link">我的账户</a>-->
             <span class="navbar-link"></span>
-            <a href="javascript:void(0)" class="navbar-link">Hello,<span>{{nickName}}</span></a>
-            <a href="javascript:void(0)" class="navbar-link" title="退出登录" @click="doLogout">Logout</a>
+            <span>{{nickName}}</span>
+            <a href="/" class="navbar-link" v-if="loginFlag" title="登录">Login</a>
+            <a href="javascript:void(0)" class="navbar-link" v-if="!loginFlag" title="退出登录" @click="doLogout">Logout</a>
             <div class="navbar-cart-container">
               <span class="navbar-cart-count" v-show="cartCount > 0">{{cartCount}}</span>
               <a class="navbar-link navbar-cart-link" href="/#/cart" title="进入购物车">
@@ -40,6 +40,7 @@
     data(){
       return{
         // userName:''
+        loginFlag:false
       }
     },
     mounted(){
@@ -75,6 +76,7 @@
             this.$store.commit('updateUserInfo',res.result)
           }else{
             alert(res.msg)
+            this.loginFlag = true
           }
         })
       },
