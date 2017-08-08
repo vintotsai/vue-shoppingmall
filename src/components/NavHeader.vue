@@ -38,11 +38,16 @@
   export default {
     data(){
       return{
-        userName:''
+        // userName:''
       }
     },
     mounted(){
       this.freshUpdate()
+    },
+    computed:{
+      userName(){
+        return this.$store.state.nickName
+      }
     },
     methods:{
       doLogout(){
@@ -59,7 +64,8 @@
         axios.get('/users/checkLogin').then((response)=>{
           let res = response.data;
           if(res.status = '0'){
-            this.userName = res.result;
+            // this.userName = res.result;
+            this.$store.commit('updateUserInfo',res.result)
           }else{
             alert('Oops未登录！')
           }
