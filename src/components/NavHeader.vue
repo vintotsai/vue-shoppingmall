@@ -18,7 +18,7 @@
           <div class="navbar-menu-container">
             <!--<a href="/" class="navbar-link">我的账户</a>-->
             <span class="navbar-link"></span>
-            <a href="javascript:void(0)" class="navbar-link">Hello,<span>{{userName}}</span></a>
+            <a href="javascript:void(0)" class="navbar-link">Hello,<span>{{nickName}}</span></a>
             <a href="javascript:void(0)" class="navbar-link" title="退出登录" @click="doLogout">Logout</a>
             <div class="navbar-cart-container">
               <span class="navbar-cart-count" v-show="cartCount > 0">{{cartCount}}</span>
@@ -35,6 +35,7 @@
 </template>
 <script>
   import axios from 'axios'
+  import { mapState } from 'vuex'
   export default {
     data(){
       return{
@@ -46,12 +47,13 @@
       this.getCartCount()
     },
     computed:{
-      userName(){
+      /*nickName(){
         return this.$store.state.nickName
       },
       cartCount(){
         return this.$store.state.cartCount
-      }
+      }*/
+      ...mapState(['nickName','cartCount'])
     },
     methods:{
       doLogout(){
