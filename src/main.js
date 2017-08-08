@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Vuex from 'vuex'
 
 import './assets/css/base.css'
 import './assets/css/checkout.css'
@@ -31,6 +32,15 @@ Vue.use(infiniteScroll)
 // elm ui
 Vue.use(ElementUI)
 
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  state:{
+    nickName:'',
+    cartCount:0 
+  }
+})
+
 // 定义全局过滤器
 Vue.filter("currency",currency)
 
@@ -38,6 +48,7 @@ Vue.filter("currency",currency)
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })
