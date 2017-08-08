@@ -84,16 +84,17 @@ router.get('/list', function (req, res, next) {
 
 // 添加到购物车接口
 router.post('/addCart', function (req, res, next) {
-  let userId = '100000077';
+  let userId = req.cookies.userId;
   let productId = req.body.productId;
   let Users = require('./../models/Users')
   Users.findOne({
-    'userId': userId
+    userId: userId
   }, function (err, userDoc) {
     if (err) {
       res.json({
         status: '1',
         msg: err.message,
+        result:''
       })
     } else {
       if (userDoc) {
@@ -106,29 +107,34 @@ router.post('/addCart', function (req, res, next) {
             goodsItem = element;
           }
         });
+        // 购物车列表存在这件商品
+        userDoc.cartList.splice(0, 0); //mongodb的坑！保存失败。https://cnodejs.org/topic/516ab9c96d38277306376cad
         if (goodsItem) {
           userDoc.save(function (err2, doc2) {
             if (err2) {
               res.json({
                 status: '1',
                 msg: err2.message,
+                result:''
               })
             } else {
               res.json({
                 status: '0',
                 msg: '保存成功。',
-                result: 'success..'
+                result: ''
               })
             }
           })
         } else {
+        // 购物车列表不存在这件商品，重新添加
           Goods.findOne({
-            'productId': productId
+            productId: productId
           }, function (err1, doc1) {
             if (err1) {
               res.json({
                 status: '1',
                 msg: err1.message,
+                result:''
               })
             } else {
               doc1.productNum = 1;
@@ -139,12 +145,13 @@ router.post('/addCart', function (req, res, next) {
                   res.json({
                     status: '1',
                     msg: err2.message,
+                    result:''
                   })
                 } else {
                   res.json({
                     status: '0',
                     msg: '保存成功。',
-                    result: 'success..'
+                    result: ''
                   })
                 }
               })

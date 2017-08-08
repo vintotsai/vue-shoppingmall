@@ -55,6 +55,10 @@ router.post('/logout', function (req, res, next) {
     path: '/',
     maxAge: -1 //让cookie失效
   })
+  res.cookie('userName','',{
+    path:'/',
+    maxAge:-1
+  })
   res.json({
     status: '0',
     msg: '登出成功lol！',
@@ -66,7 +70,7 @@ router.post('/logout', function (req, res, next) {
 router.get('/checkLogin', function (req, res, next) {
   if (req.cookies.userId) {
     res.json({
-      stauts: '0',
+      status: '0',
       msg: '',
       result: req.cookies.userName
     })
@@ -75,6 +79,33 @@ router.get('/checkLogin', function (req, res, next) {
       stauts: '1',
       msg: 'Oops~未登录',
       result: ''
+    })
+  }
+})
+
+// 获取商品数量
+router.get('/getCartCount',function(req,res,next){
+  if(req.cookies && req.cookies.userId){
+    var userId = req.cookies.userId
+    Users.findOne({userId: userId},function(err,user){
+      if(err){
+        res.json({
+          status:'1',
+          msg:err.message,
+          result:''
+        })
+      } else {
+        var cartList = user.cartList;
+        var cartCount = 0;
+        cartList.map((item)=>{
+          cartCount += parseInt(item.productNum)
+        })
+        res.json({
+          status:'0',
+          msg:'',
+          result:cartCount
+        })
+      }
     })
   }
 })
@@ -184,7 +215,7 @@ router.post('/checkAllList', function (req, res, next) {
           item.checked = checkedAll;
         });
         console.log(user.cartList)
-        user.cartList.splice(0, 0); //解决了坑！https://cnodejs.org/topic/516ab9c96d38277306376cad 保存失败。
+        user.cartList.splice(0, 0); //mongodb的坑！保存失败。https://cnodejs.org/topic/516ab9c96d38277306376cad
         user.save(function (err2, doc2) {
           if (err2) {
             res.json({

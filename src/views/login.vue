@@ -31,7 +31,6 @@
 </template>
 <script>
   // import {mapActions} from 'vuex'
-  // import {set}  from './../assets/js/cookieUtil'
   import axios from 'axios'
 
   export default{
@@ -53,20 +52,13 @@
           }else{
             if(res.status == '0'){
               this.userName = res.result.userName
-              this.$router.push({ path: 'goods' })
+              this.$router.push({ path: '/goods' })
             }
           }
         }).catch((err)=>console.log(err.stack))
-      },
-      clearInfo(){
-        this.info = ''
-      },
+      }
       // ...mapActions(['login'])
-    },
-    // watch: {
-    //   name: 'clearInfo',
-    //   pwd: 'clearInfo'
-    // }
+    }
   }
 </script>
 <style scoped>

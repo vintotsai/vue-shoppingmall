@@ -201,8 +201,8 @@ export default {
         axios.post('/users/delCartList',{productId:productId}).then((response)=>{
           let res = response.data;
           if(res.status == '0'){
-            console.log('deleted db.')
             this.getCartList();
+            this.$store.commit('updateCartCount',-item.productNum)
           }
         })
       }
@@ -213,9 +213,10 @@ export default {
           return
         }
         item.productNum --;
-
+        this.$store.commit('updateCartCount',-1)
       }else if(flag === 'plus'){
         item.productNum ++;
+        this.$store.commit('updateCartCount',1)
       }else{
         item.checked  = item.checked == 1 ? 0 : 1;
       }

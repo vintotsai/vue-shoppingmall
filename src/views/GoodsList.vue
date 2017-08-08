@@ -144,10 +144,6 @@ export default {
   // },
   methods: {
     getGoodsList(flag) {
-      // var param = {
-      //   page:this.page,
-      //   pageSize:this.pageSize,
-      // }
       this.loadingImg = true;
       var sort = this.sortPriceFlag ? 1 : -1;
       axios.get('/goods/list'+'?page='+this.page+'&pageSize='+this.pageSize+'&sort='+sort+'&priceRange='+this.priceChecked).then((result) => {
@@ -211,13 +207,13 @@ export default {
     addToCart(item,index){
       axios.post('/goods/addCart',{
         productId:item.productId,
-        deepbreath:'totsai'
-      }).then((res)=>{
-        let data = res.data;
-        if(data.status == '1'){
-          alert('添加成功。')
+      }).then((response)=>{
+        let res = response.data;
+        if(res.status == '0'){
+          this.$store.commit('updateCartCount',1)
+          alert('添加成功！')
         }else{
-          alert('mesg:'+data.msg)
+          alert('error:'+res.msg)
         }
       })
     },

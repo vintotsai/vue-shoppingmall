@@ -21,7 +21,7 @@
             <a href="javascript:void(0)" class="navbar-link">Hello,<span>{{userName}}</span></a>
             <a href="javascript:void(0)" class="navbar-link" title="退出登录" @click="doLogout">Logout</a>
             <div class="navbar-cart-container">
-              <span class="navbar-cart-count"></span>
+              <span class="navbar-cart-count" v-show="cartCount > 0">{{cartCount}}</span>
               <a class="navbar-link navbar-cart-link" href="/#/cart" title="进入购物车">
                 <svg class="navbar-cart-logo">
                   <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cart"></use>
@@ -43,10 +43,14 @@
     },
     mounted(){
       this.freshUpdate()
+      this.getCartCount()
     },
     computed:{
       userName(){
         return this.$store.state.nickName
+      },
+      cartCount(){
+        return this.$store.state.cartCount
       }
     },
     methods:{
@@ -55,6 +59,7 @@
           axios.post('/users/logout').then((response)=>{
           let res = response.data;
           if(res.status == '0'){
+            this.$store.commit('updateUserInfo','')
             this.$router.push({ path: '/' })
           }
          }).catch((err)=>console.log(err.stack))
@@ -63,11 +68,19 @@
       freshUpdate(){
         axios.get('/users/checkLogin').then((response)=>{
           let res = response.data;
-          if(res.status = '0'){
+          if(res.status == '0'){
             // this.userName = res.result;
             this.$store.commit('updateUserInfo',res.result)
           }else{
-            alert('Oops未登录！')
+            alert(res.msg)
+          }
+        })
+      },
+      getCartCount(){
+        axios.get('/users/getCartCount').then((response)=>{
+          let res = response.data;
+          if(res.status == '0'){
+            this.$store.commit('updateCartCount',res.result)
           }
         })
       }
