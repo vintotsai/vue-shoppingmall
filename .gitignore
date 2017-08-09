@@ -12,3 +12,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 src/assets/video/
+dump.rdb
