@@ -29,19 +29,15 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      //使用代理解决跨域问题
       '/goods': {
         target: `http://localhost:${ port }`
       },
-      '/goods/*': {
-        target: `http://localhost:${ port }`
-      },
-      '/users': {
-        target: `http://localhost:${ port }`
-      },
-      '/users/*': {
-        target: `http://localhost:${ port }`
-      }
+      // '/goods/*': {
+      //   target: `http://localhost:${ port }`
+      // },
+      // '/users/*': {
+      //   target: `http://localhost:${ port }`
+      // }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
