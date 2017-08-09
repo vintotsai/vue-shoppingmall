@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
 const mongoose = require('mongoose')
 const Goods = require('./../models/Goods')
@@ -23,9 +23,9 @@ router.get('/list', function (req, res, next) {
   let skip = (page - 1) * pageSize
   let sort = parseInt(req.query.sort)
   let priceRange = req.query.priceRange
-  let priceGT = '';
-  let priceLTE = '';
-  let params = {};
+  let priceGT = ''
+  let priceLTE = ''
+  let params = {}
   if (priceRange != 'all') {
     switch (priceRange) {
       case '0':
@@ -50,7 +50,7 @@ router.get('/list', function (req, res, next) {
         break;
     }
     params = {
-      'salePrice': {
+      salePrice: {
         $gt: priceGT,
         $lte: priceLTE
       }
@@ -58,7 +58,7 @@ router.get('/list', function (req, res, next) {
   }
 
   let goodsModel = Goods.find(params).skip(skip).limit(pageSize).sort({
-    'salePrice': sort
+    salePrice: sort
   })
 
   goodsModel.exec(function (err, doc) {
