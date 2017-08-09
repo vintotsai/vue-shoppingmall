@@ -16,7 +16,7 @@ mongoose.connection.on("disconnected", function () {
   console.log(`mongodb 断开连接！`)
 })
 
-// 商品列表
+// 商品列表接口
 router.get('/list', function (req, res, next) {
   let page = parseInt(req.query.page)
   let pageSize = parseInt(req.query.pageSize)
@@ -80,12 +80,12 @@ router.get('/list', function (req, res, next) {
       }
     }
   })
-});
+})
 
 // 添加到购物车接口
 router.post('/addCart', function (req, res, next) {
-  let userId = req.cookies.userId;
-  let productId = req.body.productId;
+  let userId = req.cookies.userId
+  let productId = req.body.productId
   let Users = require('./../models/Users')
   Users.findOne({
     userId: userId
@@ -98,17 +98,17 @@ router.post('/addCart', function (req, res, next) {
       })
     } else {
       if (userDoc) {
-        // 拿到user数据以后遍历cartList是否存在这件商品
-        let goodsItem = '';
+        // 拿到user数据后 遍历user里面的cartList是否存在所点击的商品
+        let goodsItem = ''
         userDoc.cartList.forEach(function (element) {
           if (element.productId == productId) {
             element.productNum += 1;
             element.checked = 1;
             goodsItem = element;
           }
-        });
-        // 购物车列表存在这件商品
-        userDoc.cartList.splice(0, 0); //mongodb的坑！保存失败。https://cnodejs.org/topic/516ab9c96d38277306376cad
+        })
+        // 用户购物列表里已经存在这件商品
+        userDoc.cartList.splice(0, 0); //mongodb的坑！保存到数据库失败的解决办法！（https://cnodejs.org/topic/516ab9c96d38277306376cad）
         if (goodsItem) {
           userDoc.save(function (err2, doc2) {
             if (err2) {
@@ -167,4 +167,4 @@ router.get('/cart',function(req,res,next){
   //
 })
 
-module.exports = router;
+module.exports = router
