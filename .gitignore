@@ -13,3 +13,4 @@ yarn-error.log*
 *.sln
 src/assets/video/
 dump.rdb
+# http://192.168.1.136:8888/
