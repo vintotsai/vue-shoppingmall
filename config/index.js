@@ -24,7 +24,7 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8080,
+    port: 8088,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -32,12 +32,12 @@ module.exports = {
       '/goods': {
         target: `http://localhost:${ port }`
       },
-      // '/goods/*': {
-      //   target: `http://localhost:${ port }`
-      // },
-      // '/users/*': {
-      //   target: `http://localhost:${ port }`
-      // }
+      '/goods/*': {
+        target: `http://localhost:${ port }`
+      },
+      '/users/*': {
+        target: `http://localhost:${ port }`
+      }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
