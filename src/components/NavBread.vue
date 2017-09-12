@@ -5,7 +5,7 @@
         <a href="/#/goods">Home</a>
         <!-- <span>Goods</span> -->
         <!-- 插槽，以供不同页面使用 -->
-        <slot></slot> 
+        <slot></slot>
       </nav>
     </div>
   </div>

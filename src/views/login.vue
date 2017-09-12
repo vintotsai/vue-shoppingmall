@@ -31,14 +31,18 @@
 </template>
 <script>
   // import {mapActions} from 'vuex'
+  import logo from './../assets/img/logo.png'
+  import logo1 from './../assets/img/logo1.png'
   import axios from 'axios'
-
+  console.log('logo:',logo)
+  console.log('logo1:',logo1)
   export default{
     data(){
       return {
         userName: '',
         userPwd: '',
-        info: ''
+        info: '',
+        logo,
       }
     },
     methods: {
