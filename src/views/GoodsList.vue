@@ -70,7 +70,6 @@
                     </div>
                   </div>
                 </li>
-
               </ul>
               <div class="load-more" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="30">
                 <img src="./../assets/loading/loading-spinning-bubbles.svg" alt="loading..." v-show="loadingImg">
