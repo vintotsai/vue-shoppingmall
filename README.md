@@ -1,4 +1,4 @@
-# mongodb+nodejs+vuejs 实战打造shoppingMall
+# skills:mongodb+nodejs+vuejs
 
 所用技术：
 > 前端view vuejs2.0  
