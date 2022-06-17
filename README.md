@@ -3,20 +3,20 @@
 ## brief
 
 Tech stack：
-> 前端视图  Vue
-> 前端路由 vue-router
-> 请求数据 axios
-> 状态管理 vuex
-> 后端框架 express
-> 数据库  mongoDB
+- 前端视图  Vue
+- 前端路由 vue-router
+- 请求数据 axios
+- 状态管理 vuex
+- 后端框架 express
+- 数据库  mongoDB
 
 其他：
-> 图片懒加载 vue-lazyload
-> 无线滚动插件 infinite-scroll
-> 全局过滤器vs局部过滤器
-> 货币过滤器 currency
-> UI库 Element
-> ...
+- 图片懒加载 vue-lazyload
+- 无线滚动插件 infinite-scroll
+- 全局过滤器vs局部过滤器
+- 货币过滤器 currency
+- UI库 Element
+- ...
 
 
 ## install
