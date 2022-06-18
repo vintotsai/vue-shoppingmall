@@ -13,8 +13,11 @@ import './assets/css/product.css'
 import 'font-awesome/css/font-awesome.min.css'
 
 import VueLazyload from 'vue-lazyload'
+
 import infiniteScroll from 'vue-infinite-scroll'
+
 import {currency} from './util/currency'
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 

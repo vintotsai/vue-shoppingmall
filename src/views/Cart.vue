@@ -59,7 +59,7 @@
               </ul>
             </div>
             <ul class="cart-item-list">
-              <li v-for="item in cartList"> 
+              <li v-for="item in cartList" :key="item">
                 <div class="cart-tab-1">
                   <div class="cart-item-check">
                     <a href="javascipt:void(0);" class="checkbox-btn item-check-btn" v-bind:class="{'check':item.checked === 1}" @click.prevent="editCart('checked',item)">
