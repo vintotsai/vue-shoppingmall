@@ -6,6 +6,7 @@ import router from './router'
 // import Vuex from 'vuex'
 import {store} from './store'
 
+import './assets/css/base.css'
 import './assets/css/checkout.css'
 import './assets/css/login.css'
 import './assets/css/product.css'
