@@ -15,5 +15,3 @@ yarn-error.log*
 src/assets/video/
 dump.rdb
 # http://192.168.1.136:8888/
-
-src/assets/css/base.css
